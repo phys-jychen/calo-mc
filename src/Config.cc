@@ -1,0 +1,132 @@
+#include "Config.hh"
+
+using namespace std;
+
+Config::Config() {}
+
+Config::~Config() {}
+
+void Config::Parse(const std::string &config_file)
+{
+    UI = G4UImanager::GetUIpointer();
+    conf = YAML::LoadFile(config_file);
+
+    if (conf["Project"].IsDefined())
+        std::cout<<"Config file loaded sucessfully"<<std::endl;
+    else
+        throw config_file;
+}
+
+bool Config::IsLoad()
+{
+    return conf["Project"].IsDefined();
+}
+
+int Config::Run()
+{
+    //choose the Random engine
+    CLHEP::HepRandom::setTheEngine(new CLHEP::RanecuEngine);
+    if(conf["Global"]["useseed"].as<bool>())
+        CLHEP::HepRandom::setTheSeed(conf["Global"]["seed"].as<int>());
+    else
+        CLHEP::HepRandom::setTheSeed(this->GetTimeNs());
+    CLHEP::HepRandom::showEngineStatus();
+    std::cout << "seed: " << CLHEP::HepRandom::getTheSeed() << std::endl;
+
+    // Construct the default run manager
+    // Verbose output class
+    G4VSteppingVerbose::SetInstance(new SteppingVerbose);
+    G4RunManager* runManager = new G4RunManager;
+
+
+    // Set mandatory initialisation classes
+    DetectorConstruction* detector = new DetectorConstruction(this);
+    if(conf["Global"]["savegeo"].as<bool>())
+    {
+    	G4GDMLParser parser;
+    	parser.Write("cepc-calo.gdml",detector->Construct());
+    }
+    runManager->SetUserInitialization(detector);
+
+    G4VUserPhysicsList* physics = new QGSP_BERT();
+    runManager->SetUserInitialization(physics);
+
+    HistoManager* histo = new HistoManager(conf["Global"]["output"].as<std::string>().c_str(), conf["Global"]["savegeo"].as<bool>());
+    //SteppingVerbose* stepV = new SteppingVerbose();
+
+    PrimaryGeneratorAction* primary = new PrimaryGeneratorAction(detector, histo, this);
+    runManager->SetUserAction(primary);
+
+    RunAction* runAction = new RunAction(primary, histo, this);
+    runManager->SetUserAction(runAction);
+
+    EventAction* eventAction = new EventAction(histo, this);
+    runManager->SetUserAction(eventAction);
+
+    TrackingAction* trackingAction = new TrackingAction(runAction, eventAction, this);
+    runManager->SetUserAction(trackingAction);
+
+    SteppingAction* steppingAction = new SteppingAction(detector, eventAction);
+    runManager->SetUserAction(steppingAction);
+
+    runManager->SetVerboseLevel(conf["Verbose"]["run"].as<int>());
+    G4String command = "/control/execute ";
+
+    UI->ApplyCommand(G4String("/control/verbose ") + G4String(conf["Verbose"]["control"].as<std::string>()));
+    UI->ApplyCommand(G4String("/tracking/verbose ") + G4String(conf["Verbose"]["tracking"].as<std::string>()));
+    UI->ApplyCommand(G4String("/event/verbose ") + G4String(conf["Verbose"]["event"].as<std::string>()));
+    // Initialise G4 kernel
+    runManager->Initialize();
+
+    runManager->BeamOn(conf["Global"]["beamon"].as<int>());
+
+    // Job termination
+    delete runManager;
+    if (access("cepc-calo.gdml", F_OK) == 0)
+        std::remove("cepc-calo.gdml");
+
+    return 1;
+}
+
+void Config::Print()
+{
+    ofstream fout("./default.yaml");
+
+    fout << "# Project information" << endl;
+    fout << "Project: CALO-MC" << endl;
+    fout << "Contact: Ji-Yuan CHEN (SJTU; < jy_chen@sjtu.edu.cn >)" << endl;
+    fout << endl << endl;
+    fout << "Global:" << endl;
+    fout << "    useseed: true    # Default: system time in ns" << endl;
+    fout << "    seed: 2022" << endl;
+    fout << endl;
+    fout << "    usemac: false    # Currently not applicable" << endl;
+    fout << "    mac: ./vis.mac" << endl;
+    fout << endl;
+    fout << "    output: ./test.root    # Output ROOT file name" << endl;
+    fout << "    beamon: 100" << endl;
+    fout << "    savegeo: false" << endl;
+    fout << endl << endl;
+    fout << "# Calorimeter construction" << endl;
+    fout << "ECAL:" << endl;
+    fout << "    build: false" << endl;
+    fout << endl;
+    fout << "HCAL:" << endl;
+    fout << "    build: true" << endl;
+    fout <<  endl << endl;
+    fout << "# Particle source set-up" << endl;
+    fout << "Source:" << endl;
+    fout << "    particle: mu+" << endl;
+    fout << "    energy: 100.0    # In GeV" << endl;
+    fout << "    position: [ 0.0, 0.0, -1.0]    # In cm" << endl;
+    fout << "    direction: [ 0.0, 0.0, 1.0]" << endl;
+    fout << endl << endl;
+    fout << "# Verbose" << endl;
+    fout << "Verbose:" << endl;
+    fout << "    run: 0" << endl;
+    fout << "    control: 0" << endl;
+    fout << "    event: 0" << endl;
+    fout << "    tracking: 0" << endl;
+
+    fout.close();
+}
