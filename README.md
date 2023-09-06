@@ -1,4 +1,4 @@
-# CALO-MC, a Simulation Framework for CEPC calorimeters
+# CALO-MC, a Simulation Framework for CEPC Calorimeters
 
 ## Author
 Ji-Yuan CHEN (SJTU; <jy_chen@sjtu.edu.cn>)
@@ -24,6 +24,7 @@ mkdir build
 cd build
 cmake ..
 make -j100    # Just do it!
+source setup.sh
 ```
 
 ## Usage
