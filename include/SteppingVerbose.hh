@@ -4,17 +4,17 @@
 #include "G4SteppingVerbose.hh"
 #include "HistoManager.hh"
 
-class SteppingVerbose : public G4SteppingVerbose {
-
+class SteppingVerbose : public G4SteppingVerbose
+{
 public:   
-  SteppingVerbose();
- ~SteppingVerbose();
+    SteppingVerbose();
+    ~SteppingVerbose();
  
-  virtual void TrackingStarted();
-  virtual void StepInfo();
+    virtual void TrackingStarted();
+    virtual void StepInfo();
   
-  //ParticleInfo fParticleInfo_Step;
-  G4double fEdep;
+    //ParticleInfo fParticleInfo_Step;
+    G4double fEdep;
 };
 
 #endif

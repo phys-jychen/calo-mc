@@ -28,16 +28,17 @@ public:
 	Config();
 	~Config();
 	virtual void Print();
-    virtual void Parse(const std::string &config_file);
+    virtual void Parse(const std::string& config_file);
     virtual int Run();
 	bool IsLoad();
 	YAML::Node conf;
+
 private:
 	G4UImanager* UI;
 	G4long GetTimeNs()
 	{
 		struct timespec ts;
-		clock_gettime(CLOCK_REALTIME,&ts);
+		clock_gettime(CLOCK_REALTIME, &ts);
 		return ts.tv_sec * 1e9 + ts.tv_nsec;
 	}
 };

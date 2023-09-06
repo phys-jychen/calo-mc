@@ -13,9 +13,9 @@ class Config;
 
 class RunAction : public G4UserRunAction
 {
-  public:
-  RunAction(PrimaryGeneratorAction*,HistoManager* histo,Config *c);
-   ~RunAction();
+public:
+    RunAction(PrimaryGeneratorAction*,HistoManager* histo,Config* c);
+    ~RunAction();
    
     virtual void BeginOfRunAction(const G4Run*);
     virtual void   EndOfRunAction(const G4Run*);
@@ -25,11 +25,10 @@ class RunAction : public G4UserRunAction
     void EventTiming(G4double);
     void PrimaryTiming(G4double);
     
-  private:
-  PrimaryGeneratorAction* fPrimary;
-  HistoManager*           fHistoManager;
-  Config*					config;
-  
+private:
+    PrimaryGeneratorAction* fPrimary;
+    HistoManager*           fHistoManager;
+    Config*					config;
     
     std::map<G4String,G4int> fParticleCount;
     std::map<G4String,G4double> fEmean;

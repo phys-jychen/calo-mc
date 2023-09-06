@@ -6,16 +6,16 @@
 
 class PhysicsList: public G4VUserPhysicsList
 {
-  public:
+public:
     PhysicsList();
-   ~PhysicsList();
+    ~PhysicsList();
 
 protected:
-  // Construct particle and physics
-  virtual void ConstructParticle();
-  virtual void ConstructProcess();  
-  virtual void SetCuts();   
-  void ConstructEMProcess();
+    // Construct particle and physics
+    virtual void ConstructParticle();
+    virtual void ConstructProcess();  
+    virtual void SetCuts();   
+    void ConstructEMProcess();
 };
 
 #endif

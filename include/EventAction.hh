@@ -23,31 +23,39 @@ class EventAction : public G4UserEventAction
         virtual void   EndOfEventAction(const G4Event*);
         G4int fStepTag;
 
-        void SetPrintModulo(G4int val)   {fPrintModulo = val;};
-        void AddDecayChain(G4String val) {fDecayChain += val;};
-		void AddEcalHit(const G4int &copyNo,const G4double &edep,const G4double &time,const G4int &pdgid,const G4int &trackid);
-		void AddHcalHit(const G4int &copyNo,const G4double &edep,const G4double &time,const G4int &pdgid,const G4int &trackid);
+        void SetPrintModulo(G4int val)
+        {
+            fPrintModulo = val;
+        }
 
-        //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-        //void AddCrystalEnDep(G4int copyNo,G4double edep){
-        //    for(size_t i_copyNo=0; i_copyNo!=(fHistoManager_Event->fParticleInfo.fCrystalID.size()); ++i_copyNo){
-        //        if(fHistoManager_Event->fParticleInfo.fCrystalID.at(i_copyNo)==copyNo){
-        //            fHistoManager_Event->fParticleInfo.fEnergyDep.at(i_copyNo) =  fHistoManager_Event->fParticleInfo.fEnergyDep.at(i_copyNo) + edep;
+        void AddDecayChain(G4String val)
+        {
+            fDecayChain += val;
+        }
+
+		void AddEcalHit(const G4int& copyNo, const G4double& edep, const G4double &time, const G4int& pdgid, const G4int& trackid);
+		void AddHcalHit(const G4int& copyNo, const G4double& edep, const G4double &time, const G4int& pdgid, const G4int& trackid);
+
+        //void AddCrystalEnDep(G4int copyNo, G4double edep)
+        //{
+        //    for(size_t i_copyNo = 0; i_copyNo != (fHistoManager_Event->fParticleInfo.fCrystalID.size()); ++i_copyNo)
+        //        if(fHistoManager_Event->fParticleInfo.fCrystalID.at(i_copyNo) == copyNo)
+        //        {
+        //            fHistoManager_Event->fParticleInfo.fEnergyDep.at(i_copyNo) = fHistoManager_Event->fParticleInfo.fEnergyDep.at(i_copyNo) + edep;
         //            return;
         //        }
-        //    }
         //    fHistoManager_Event->fParticleInfo.fCrystalID.push_back(copyNo);
         //    fHistoManager_Event->fParticleInfo.fEnergyDep.push_back(edep);
         //}
 
     private:
-		Double_t SiPMDigi(const Double_t &edep) const;
+		Double_t SiPMDigi(const Double_t& edep) const;
         G4double        fEventEdep;
         G4int           fPrintModulo;
         G4String        fDecayChain;                   
         HistoManager* fHistoManager_Event;
-		Config			*config;
-        G4GeneralParticleSource * fGParticleSource;
+		Config*       config;
+        G4GeneralParticleSource* fGParticleSource;
 };
 
 #endif

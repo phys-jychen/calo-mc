@@ -10,14 +10,17 @@ class Config;
 class DetectorConstruction : public G4VUserDetectorConstruction
 {
   public:
-  
     DetectorConstruction(Config *c);
    ~DetectorConstruction();
 
     virtual     
     G4VPhysicalVolume* Construct();
                         
-    G4double GetWorldSize() {return fWorldSize;}; 
+    G4double GetWorldSize()
+    {
+        return fWorldSize;
+    }
+
 	G4VPhysicalVolume* GetphysiWorld()
 	{
 	    return this->physiWorld;

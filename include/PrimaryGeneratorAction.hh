@@ -19,28 +19,36 @@ class Config;
 
 class PrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
 {
-  public:
-    PrimaryGeneratorAction(DetectorConstruction*, HistoManager*, Config *c);    
-   ~PrimaryGeneratorAction();
+public:
+    PrimaryGeneratorAction(DetectorConstruction*, HistoManager*, Config* c);    
+    ~PrimaryGeneratorAction();
 
-  public:
+public:
     virtual void GeneratePrimaries(G4Event*);
-    G4GeneralParticleSource* GetParticleGun() { return fGParticleSource;}; 
+    G4GeneralParticleSource* GetParticleGun()
+    {
+        return fGParticleSource;
+    }
 
-  private:
+private:
     G4VPrimaryGenerator* HEPEvt;
 //    G4VPrimaryGenerator* particleGun;
     G4bool useHEPEvt;
-    G4GeneralParticleSource * fGParticleSource;
+    G4GeneralParticleSource* fGParticleSource;
     DetectorConstruction* fDetector;
     HistoManager* fHistoManager_Particle;
-	Config *config;
+    Config* config;
 
-  public:
+public:
     inline void SetHEPEvtGenerator(G4bool f)
-    { useHEPEvt = f;}
+    {
+        useHEPEvt = f;
+    }
+
     inline G4bool GetHEPEvtGenerator()
-    { return useHEPEvt;}
+    {
+        return useHEPEvt;
+    }
 };
 
 #endif

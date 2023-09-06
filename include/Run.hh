@@ -10,11 +10,11 @@ class G4ParticleDefinition;
 
 class Run : public G4Run
 {
-  public:
+public:
     Run();
-   ~Run();
+    ~Run();
 
-  public:
+public:
     void ParticleCount(G4String, G4double);
     void Balance(G4double,G4double);
     void EventTiming(G4double);
@@ -23,12 +23,13 @@ class Run : public G4Run
     void SetPrimary(G4ParticleDefinition* particle, G4double energy);
     void EndOfRun(); 
             
-  //virtual void Merge(const G4Run*);
+//    virtual void Merge(const G4Run*);
 
-  private:    
-    struct ParticleData {
+private:    
+    struct ParticleData
+    {
      ParticleData()
-       : fCount(0), fEmean(0.), fEmin(0.), fEmax(0.) {}
+       : fCount(0), fEmean(0.0), fEmin(0.0), fEmax(0.0) {}
      ParticleData(G4int count, G4double ekin, G4double emin, G4double emax)
        : fCount(count), fEmean(ekin), fEmin(emin), fEmax(emax) {}
      G4int     fCount;
@@ -46,7 +47,7 @@ class Run : public G4Run
     G4double fEkinTot[3];
     G4double fPbalance[3];
     G4double fEventTime[3];
-    G4double fPrimaryTime;                        
+    G4double fPrimaryTime;
 };
 
 #endif
