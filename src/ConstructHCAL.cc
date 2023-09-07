@@ -19,7 +19,7 @@ void DetectorConstruction::ConstructHCAL()
 {
     std::cout << "Constructing AHCAL..." << std::endl;
     G4double ecal_length = 300.0 * mm;
-    if (!config->conf["ECAL"]["build"].as<G4bool>())
+    if (!config->conf["Geometry"]["build_ECAL"].as<G4bool>())
         ecal_length = 0.0 * mm;
     std::cout << "Building AHCAL at " << ecal_length << " mm." << std::endl;
 
@@ -48,7 +48,9 @@ void DetectorConstruction::ConstructHCAL()
     G4double crystalGapZ = absorberGapZ;
     G4double PCBGapZ = absorberGapZ;
     G4double PCBPositionZ = (ecal_length + absorberZ0 + crystalZ + 0.5 * PCBZ) * mm;
-    G4int nLayer = 40;
+    G4int nLayer = config->conf["HCAL"]["nLayer"].as<G4int>();
+    G4int ncellX = config->conf["HCAL"]["nCellX"].as<G4int>();
+    G4int ncellY = config->conf["HCAL"]["nCellY"].as<G4int>();
 
     G4bool checkOverlap = false;
 
@@ -97,9 +99,9 @@ void DetectorConstruction::ConstructHCAL()
 
     for (G4int i_Layer = 0; i_Layer < nLayer; ++i_Layer)
     {
-        for (G4int i_X = 0; i_X < 18; ++i_X)
+        for (G4int i_X = 0; i_X < ncellX; ++i_X)
         {
-            for (G4int i_Y = 0; i_Y < 18; ++i_Y)
+            for (G4int i_Y = 0; i_Y < ncellY; ++i_Y)
             {
                 physiCrystal = new G4PVPlacement(0,                                                // no rotation
                                                  G4ThreeVector(-0.5 * PCBXY + (i_X + 0.5) * (crystalXY + gapXY),

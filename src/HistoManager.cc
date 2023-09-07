@@ -3,7 +3,7 @@
 #include <TTree.h>
 #include <TFile.h>
 
-HistoManager::HistoManager(const char* foutname, const bool& savegeo)
+HistoManager::HistoManager(const char* foutname, const G4bool& savegeo)
   : fRootFile(0), fNtuple(0), fSaveGeo(savegeo)
 {
     fOutName = foutname;

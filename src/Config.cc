@@ -6,13 +6,13 @@ Config::Config() {}
 
 Config::~Config() {}
 
-void Config::Parse(const std::string &config_file)
+void Config::Parse(const string& config_file)
 {
     UI = G4UImanager::GetUIpointer();
     conf = YAML::LoadFile(config_file);
 
     if (conf["Project"].IsDefined())
-        std::cout<<"Config file loaded sucessfully"<<std::endl;
+        G4cout << "Configuration file loaded successfully" << G4endl;
     else
         throw config_file;
 }
@@ -22,12 +22,12 @@ bool Config::IsLoad()
     return conf["Project"].IsDefined();
 }
 
-int Config::Run()
+G4int Config::Run()
 {
     //choose the Random engine
     CLHEP::HepRandom::setTheEngine(new CLHEP::RanecuEngine);
-    if(conf["Global"]["useseed"].as<bool>())
-        CLHEP::HepRandom::setTheSeed(conf["Global"]["seed"].as<int>());
+    if(conf["Global"]["useseed"].as<G4bool>())
+        CLHEP::HepRandom::setTheSeed(conf["Global"]["seed"].as<G4int>());
     else
         CLHEP::HepRandom::setTheSeed(this->GetTimeNs());
     CLHEP::HepRandom::showEngineStatus();
@@ -41,7 +41,7 @@ int Config::Run()
 
     // Set mandatory initialisation classes
     DetectorConstruction* detector = new DetectorConstruction(this);
-    if(conf["Global"]["savegeo"].as<bool>())
+    if(conf["Global"]["savegeo"].as<G4bool>())
     {
     	G4GDMLParser parser;
     	parser.Write("cepc-calo.gdml",detector->Construct());
@@ -51,7 +51,7 @@ int Config::Run()
     G4VUserPhysicsList* physics = new QGSP_BERT();
     runManager->SetUserInitialization(physics);
 
-    HistoManager* histo = new HistoManager(conf["Global"]["output"].as<std::string>().c_str(), conf["Global"]["savegeo"].as<bool>());
+    HistoManager* histo = new HistoManager(conf["Global"]["output"].as<std::string>().c_str(), conf["Global"]["savegeo"].as<G4bool>());
     //SteppingVerbose* stepV = new SteppingVerbose();
 
     PrimaryGeneratorAction* primary = new PrimaryGeneratorAction(detector, histo, this);
@@ -108,18 +108,27 @@ void Config::Print()
     fout << "    savegeo: false" << endl;
     fout << endl << endl;
     fout << "# Calorimeter construction" << endl;
-    fout << "ECAL:" << endl;
-    fout << "    build: false" << endl;
-    fout << endl;
+    fout << "Geometry:" << endl;
+    fout << "    build_ECAL: false" << endl;
+    fout << "    build_HCAL: true" << endl;
+    fout << endl << endl;
+    fout << "# Structure of HCAL" << endl;
     fout << "HCAL:" << endl;
-    fout << "    build: true" << endl;
+    fout << "    nCellX: 18" << endl;
+    fout << "    nCellY: 18" << endl;
+    fout << "    nLayer: 40" << endl;
+    /*
+    fout << "    cell_widthX: 40    # In mm" << endl;
+    fout << "    cell_widthY: 40    # In mm" << endl;
+    fout << "    cell_thick: 30    # In mm" << endl;
+    */
     fout <<  endl << endl;
     fout << "# Particle source set-up" << endl;
     fout << "Source:" << endl;
     fout << "    particle: mu+" << endl;
     fout << "    energy: 100.0    # In GeV" << endl;
-    fout << "    position: [ 0.0, 0.0, -1.0]    # In cm" << endl;
-    fout << "    direction: [ 0.0, 0.0, 1.0]" << endl;
+    fout << "    position: [ 0.0, 0.0, -1.0 ]    # In cm" << endl;
+    fout << "    direction: [ 0.0, 0.0, 1.0 ]" << endl;
     fout << endl << endl;
     fout << "# Verbose" << endl;
     fout << "Verbose:" << endl;

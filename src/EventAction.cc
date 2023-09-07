@@ -26,7 +26,7 @@ EventAction::~EventAction()
 
 void EventAction::BeginOfEventAction(const G4Event*)
 {
-    fStepTag=0;
+    fStepTag = 0;
 //    G4cout << "..................6666666666666........................" << G4endl;
     fDecayChain = " ";
 //    fHistoManager_Event->fParticleInfo.reset();
@@ -38,6 +38,7 @@ void EventAction::EndOfEventAction(const G4Event* evt)
 //    G4cout << " >>>>>>>>>>>>>>>>> " << fHistoManager_Event->fParticleInfo.fPrimaryEnergy << " <<<<<<<<<<<<<<<" << G4endl;
 //    G4cout << "..................777777777777777........................" << G4endl;
     G4int evtNb = evt->GetEventID(); 
+    G4int nLayer = config->conf["HCAL"]["nLayer"].as<G4int>();
     // Printing survey
     if (evtNb % 1000 == 0) 
         G4cout << G4endl << "End of event " << std::setw(6) << evtNb << " :" + fDecayChain << G4endl;
@@ -77,8 +78,8 @@ void EventAction::EndOfEventAction(const G4Event* evt)
         G4double x = (i.first % 100000) / 100;
         G4double y = (i.first % 100);
         G4double layer = i.first / 100000;
-        fHistoManager_Event->fParticleInfo.fhcal_cellx.emplace_back(-360.0 + (x + 0.5) * 40.0);
-        fHistoManager_Event->fParticleInfo.fhcal_celly.emplace_back(-360.0 + (y + 0.5) * 40.0);
+        fHistoManager_Event->fParticleInfo.fhcal_cellx.emplace_back(-360.0 + (x + 0.5) * nLayer);
+        fHistoManager_Event->fParticleInfo.fhcal_celly.emplace_back(-360.0 + (y + 0.5) * nLayer);
         fHistoManager_Event->fParticleInfo.fhcal_cellz.emplace_back(1.5 + layer * 25.0);
     }
 //    G4cout << "End of event " << fHistoManager_Event->fParticleInfo.nTrack << " " << fHistoManager_Event->fParticleInfo.fTrackTime[0] << G4endl;
