@@ -30,20 +30,30 @@ void DetectorConstruction::ConstructHCAL()
     G4Material* kevlar = G4NistManager::Instance()->FindOrBuildMaterial("G4_KAPTON");
 
     G4int nLayer = config->conf["HCAL"]["nLayer"].as<G4int>();
-    G4int ncellX = config->conf["HCAL"]["nCellX"].as<G4int>();
-    G4int ncellY = config->conf["HCAL"]["nCellY"].as<G4int>();
+    G4int nCellX = config->conf["HCAL"]["nCellX"].as<G4int>();
+    G4int nCellY = config->conf["HCAL"]["nCellY"].as<G4int>();
+    G4double CellWidthX = config->conf["HCAL"]["CellWidthX"].as<G4double>();
+    G4double CellWidthY = config->conf["HCAL"]["CellWidthY"].as<G4double>();
 
     G4double absorberZ0 = 2.0 * mm;
+    /*
     G4double crystalX = 40.0 * mm;
     G4double crystalY = 40.0 * mm;
+     */
+    G4double crystalX = CellWidthX * mm;
+    G4double crystalY = CellWidthY * mm;
     G4double crystalZ = 3.0 * mm;
     G4double gap_psd_abs0 = 0.1 * mm;
     G4double gapX = 0.3 * mm;
     G4double gapY = 0.3 * mm;
     G4double gapZ = 5.0 * mm;
     G4double crystalPositionZ = (ecal_length + absorberZ0 + gap_psd_abs0 + 0.5 * crystalZ) * mm;
-    G4double PCBX = 72.0 * cm;
-    G4double PCBY = 72.0 * cm;
+    /*
+    G4double PCBX = 720.0 * mm;
+    G4double PCBY = 720.0 * mm;
+     */
+    G4double PCBX = nCellX * (CellWidthX + gapX) * mm;
+    G4double PCBY = nCellY * (CellWidthY + gapY) * mm;
     G4double PCBZ = 2.0 * mm;
     G4double absorberX = PCBX;
     G4double absorberY = PCBY;
@@ -61,9 +71,9 @@ void DetectorConstruction::ConstructHCAL()
 
     // Absorber layer
     G4Box* solidAbsorber = new G4Box("hcal_absorber",                                              // name
-			                         0.5 * absorberX, 0.5 * absorberY, 0.5 * absorberZ);         // size
+			                         0.5 * absorberX, 0.5 * absorberY, 0.5 * absorberZ);           // size
     G4Box* solidAbsorber0 = new G4Box("hcal_absorber0",                                            // name
-                                      0.5 * absorberX, 0.5 * absorberY, 0.5 * absorberZ0);       // size
+                                      0.5 * absorberX, 0.5 * absorberY, 0.5 * absorberZ0);         // size
     G4LogicalVolume* logicAbsorber = new G4LogicalVolume(solidAbsorber,                            // solid
 					                                     iron,                                     // material
                                                          "hcal_absorber");                         // name 
@@ -93,7 +103,7 @@ void DetectorConstruction::ConstructHCAL()
 
     // Active layer
     G4Box* solidCrystal = new G4Box("hcal_psd",                                                    // name
-			                        0.5 * crystalX, 0.5 * crystalY, 0.5 * crystalZ);             // size
+			                        0.5 * crystalX, 0.5 * crystalY, 0.5 * crystalZ);               // size
 
     G4LogicalVolume* logicCrystal = new G4LogicalVolume(solidCrystal,                              // solid
 				                                        //ScinGlass4,                                // material
@@ -104,9 +114,9 @@ void DetectorConstruction::ConstructHCAL()
 
     for (G4int i_Layer = 0; i_Layer < nLayer; ++i_Layer)
     {
-        for (G4int i_X = 0; i_X < ncellX; ++i_X)
+        for (G4int i_X = 0; i_X < nCellX; ++i_X)
         {
-            for (G4int i_Y = 0; i_Y < ncellY; ++i_Y)
+            for (G4int i_Y = 0; i_Y < nCellY; ++i_Y)
             {
                 physiCrystal = new G4PVPlacement(0,                                                // no rotation
                                                  G4ThreeVector(-0.5 * PCBX + (i_X + 0.5) * (crystalX + gapX),
@@ -123,8 +133,8 @@ void DetectorConstruction::ConstructHCAL()
     }
 
     G4Box* solidPCB = new G4Box("hcal_pcb",                                                        // its name
-                                0.5 * PCBX, 0.5 * PCBY, 0.5 * PCBZ);                             // its size
-  
+                                0.5 * PCBX, 0.5 * PCBY, 0.5 * PCBZ);                               // its size
+
     G4LogicalVolume* logicPCB = new G4LogicalVolume(solidPCB,                                      // its solid
 				                                    kevlar,                                        // its material//should be check.............
                                                     "hcal_pcb");                                   // its name 

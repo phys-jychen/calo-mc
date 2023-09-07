@@ -221,7 +221,7 @@ void Run::EndOfRun()
     }
             
     // Activity of primary ion
-    G4double pTimeMean = fPrimaryTime/nbEvents;
+    G4double pTimeMean = fPrimaryTime / nbEvents;
     G4double molMass = fParticle->GetAtomicMass() * g / mole;
     G4double nAtoms_perUnitOfMass = Avogadro/molMass;
     G4double Activity_perUnitOfMass = 0.0;

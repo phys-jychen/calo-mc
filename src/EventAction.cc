@@ -31,6 +31,7 @@ void EventAction::BeginOfEventAction(const G4Event*)
     fDecayChain = " ";
 //    fHistoManager_Event->fParticleInfo.reset();
 //    G4cout << "Begin of event" << G4endl;
+//    G4RunManager::GetRunManager()->StoreRandomNumberStatusToG4Event(1);
 }
 
 void EventAction::EndOfEventAction(const G4Event* evt)
@@ -87,8 +88,8 @@ void EventAction::EndOfEventAction(const G4Event* evt)
         G4double x = (i.first % 100000) / 100;
         G4double y = (i.first % 100);
         G4double layer = i.first / 100000;
-        fHistoManager_Event->fParticleInfo.fhcal_cellx.emplace_back((x + 0.5) * (CellWidthX + gapX) - 0.5 * nCellX * (CellWidthX + gapX));
-        fHistoManager_Event->fParticleInfo.fhcal_celly.emplace_back((y + 0.5) * (CellWidthY + gapY) - 0.5 * nCellY * (CellWidthY + gapY));
+        fHistoManager_Event->fParticleInfo.fhcal_cellx.emplace_back((x + 0.5 - 0.5 * nCellX) * (CellWidthX + gapX));
+        fHistoManager_Event->fParticleInfo.fhcal_celly.emplace_back((y + 0.5 - 0.5 * nCellY) * (CellWidthY + gapY));
         fHistoManager_Event->fParticleInfo.fhcal_cellz.emplace_back(30.0 * layer);
         /*
         fHistoManager_Event->fParticleInfo.fhcal_cellx.emplace_back(-360.0 + (x + 0.5) * 40.0);
@@ -110,7 +111,7 @@ void EventAction::AddEcalHit(const G4int& copyNo, const G4double& edep, const G4
     //fHistoManager_Event->fParticleInfo.fecal_time.emplace_back(time);
 
     G4int layer=copyNo / 210;
-    //std::cout << copyNo << " " << layer << std::endl;
+    //G4cout << copyNo << " " << layer << G4endl;
     G4int m = (copyNo % 210) / 42;
     G4int n = (copyNo % 210) % 42;
     G4double x = 0.0;
@@ -149,7 +150,7 @@ void EventAction::AddHcalHit(const G4int& copyNo, const G4double& edep, const G4
     fHistoManager_Event->fParticleInfo.fhcal_mape[copyNo] += edep;
 }
 
-Double_t EventAction::SiPMDigi(const Double_t &edep) const
+Double_t EventAction::SiPMDigi(const Double_t& edep) const
 {
     Int_t sPix = 0;
     sPix = gRandom->Poisson(edep / 0.466 * 20);

@@ -9,8 +9,8 @@
 #include "G4SystemOfUnits.hh"
 #include <iomanip>
 
-RunAction::RunAction(PrimaryGeneratorAction* kin,HistoManager* histo,Config *c)
- : fPrimary(kin),fHistoManager(histo),config(c)
+RunAction::RunAction(PrimaryGeneratorAction* kin,HistoManager* histo,Config* c)
+ : fPrimary(kin), fHistoManager(histo), config(c)
 {}
 
 RunAction::~RunAction()
@@ -34,8 +34,11 @@ void RunAction::BeginOfRunAction(const G4Run*)
         analysisManager->OpenFile();
   
     // Inform the runManager to save random number seed
-    G4RunManager::GetRunManager()->SetRandomNumberStore(false);  
-  
+//    G4RunManager::GetRunManager()->StoreRandomNumberStatusToG4Event(config->conf["Global"]["seed"].as<G4int>());
+//    G4Random::setTheSeed(config->conf["Global"]["seed"].as<G4int>());
+    G4RunManager::GetRunManager()->SetRandomNumberStore(false);
+//    G4RunManager::GetRunManager()->SetRandomNumberStore(true);
+
     fHistoManager->book();
 }
 
@@ -120,10 +123,10 @@ void RunAction::EndOfRunAction(const G4Run* run)
 
     G4int prec = 4, wid = prec + 2;
     G4int dfprec = G4cout.precision(prec);
-      
+
     // Particle count
     G4cout << " Nb of generated particles:" << G4endl << G4endl;
-     
+
     std::map<G4String, G4int>::iterator it;
     for (it = fParticleCount.begin(); it != fParticleCount.end(); it++)
     { 
