@@ -13,7 +13,7 @@
 #include "HistoManager.hh"
 #include "PrimaryGeneratorAction.hh"
 
-PrimaryGeneratorAction::PrimaryGeneratorAction(DetectorConstruction* det, HistoManager* histo, Config *c)
+PrimaryGeneratorAction::PrimaryGeneratorAction(DetectorConstruction* det, HistoManager* histo, Config* c)
  : G4VUserPrimaryGeneratorAction(),
    fGParticleSource(),
    fDetector(det),

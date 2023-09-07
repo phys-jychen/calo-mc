@@ -40,8 +40,12 @@ void EventAction::EndOfEventAction(const G4Event* evt)
     G4int evtNb = evt->GetEventID();
 
     G4int nLayer = config->conf["HCAL"]["nLayer"].as<G4int>();
-    G4int ncellX = config->conf["HCAL"]["nCellX"].as<G4int>();
-    G4int ncellY = config->conf["HCAL"]["nCellY"].as<G4int>();
+    G4int nCellX = config->conf["HCAL"]["nCellX"].as<G4int>();
+    G4int nCellY = config->conf["HCAL"]["nCellY"].as<G4int>();
+    G4double CellWidthX = config->conf["HCAL"]["CellWidthX"].as<G4double>();
+    G4double CellWidthY = config->conf["HCAL"]["CellWidthY"].as<G4double>();
+    G4double gapX = 0.3;
+    G4double gapY = 0.3;
 
     // Printing survey
     if (evtNb % 1000 == 0) 
@@ -73,6 +77,7 @@ void EventAction::EndOfEventAction(const G4Event* evt)
         fHistoManager_Event->fParticleInfo.fecal_celly.emplace_back(y);
         fHistoManager_Event->fParticleInfo.fecal_cellz.emplace_back(z);
     }
+
     for (auto i : fHistoManager_Event->fParticleInfo.fhcal_mape)
     {
         if (i.second < 0.1)
@@ -82,12 +87,12 @@ void EventAction::EndOfEventAction(const G4Event* evt)
         G4double x = (i.first % 100000) / 100;
         G4double y = (i.first % 100);
         G4double layer = i.first / 100000;
-        fHistoManager_Event->fParticleInfo.fhcal_cellx.emplace_back(-360.0 + (x + 0.5) * nLayer);
-        fHistoManager_Event->fParticleInfo.fhcal_celly.emplace_back(-360.0 + (y + 0.5) * nLayer);
+        fHistoManager_Event->fParticleInfo.fhcal_cellx.emplace_back((x + 0.5) * (CellWidthX + gapX) - 0.5 * nCellX * (CellWidthX + gapX));
+        fHistoManager_Event->fParticleInfo.fhcal_celly.emplace_back((y + 0.5) * (CellWidthY + gapY) - 0.5 * nCellY * (CellWidthY + gapY));
         fHistoManager_Event->fParticleInfo.fhcal_cellz.emplace_back(30.0 * layer);
         /*
-        fHistoManager_Event->fParticleInfo.fhcal_cellx.emplace_back(-360.0 + (x + 0.5) * nLayer);
-        fHistoManager_Event->fParticleInfo.fhcal_celly.emplace_back(-360.0 + (y + 0.5) * nLayer);
+        fHistoManager_Event->fParticleInfo.fhcal_cellx.emplace_back(-360.0 + (x + 0.5) * 40.0);
+        fHistoManager_Event->fParticleInfo.fhcal_celly.emplace_back(-360.0 + (y + 0.5) * 40.0);
         fHistoManager_Event->fParticleInfo.fhcal_cellz.emplace_back(1.5 + layer * 25.0);
         */
     }

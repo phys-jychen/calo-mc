@@ -16,7 +16,7 @@ void Config::Parse(const string& config_file)
         throw config_file;
 }
 
-bool Config::IsLoad()
+G4bool Config::IsLoad()
 {
     return conf["Project"].IsDefined();
 }
@@ -115,10 +115,10 @@ void Config::Print()
     fout << "    nCellX: 18" << endl;
     fout << "    nCellY: 18" << endl;
     fout << "    nLayer: 40" << endl;
+    fout << "    CellWidthX: 40    # In mm" << endl;
+    fout << "    CellWidthY: 40    # In mm" << endl;
     /*
-    fout << "    cell_widthX: 40    # In mm" << endl;
-    fout << "    cell_widthY: 40    # In mm" << endl;
-    fout << "    cell_thick: 30    # In mm" << endl;
+    fout << "    CellThick: 30    # In mm" << endl;
     */
     fout <<  endl << endl;
     fout << "# Particle source set-up" << endl;
