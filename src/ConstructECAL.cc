@@ -19,7 +19,7 @@
 void DetectorConstruction::ConstructECAL()
 {
     G4bool checkOverlaps = false;
-	std::cout<<"Starting to construct ECAL"<<std::endl;
+	G4cout << "Constructing ECAL..." << G4endl;
     //
     // define a material
     //   
@@ -54,10 +54,10 @@ void DetectorConstruction::ConstructECAL()
      G4int ncomponents;
      G4double fractionmass;
   //   density = 14.98*g/cm3; // for 25Cu:75W
-     density = 16.45*g/cm3; // for 15Cu:85W
+     density = 16.45 * g / cm3; // for 15Cu:85W
      G4Material* CuW = new G4Material(name="CuW", density, ncomponents=2);
-     CuW->AddElement(elCu,fractionmass=0.15);
-     CuW->AddElement(elW,fractionmass=0.85);
+     CuW->AddElement(elCu, fractionmass=0.15);
+     CuW->AddElement(elW, fractionmass=0.85);
  
     // crystal shape 
     //  material  CdMoO4
@@ -67,38 +67,38 @@ void DetectorConstruction::ConstructECAL()
     G4int LayerNo = 30;
     G4int crystalNoX = 42;
     G4int crystalNoY = 5;
-    G4double absorberZ0=0*mm;
-    G4double crystalX = 5*mm;
-    G4double crystalY = 45*mm;
-    G4double crystalZ = 2*mm;
-    G4double absorberXY = 230*mm;
-    G4double absorberZ = 2.8*mm;
+    G4double absorberZ0 = 0 * mm;
+    G4double crystalX = 5 * mm;
+    G4double crystalY = 45 * mm;
+    G4double crystalZ = 2 * mm;
+    G4double absorberXY = 230 * mm;
+    G4double absorberZ = 2.8 * mm;
     G4double PCBXY = absorberXY;
-    G4double PCBZ = 2*mm;
-    G4double crystalGapX = 0.;
-    G4double crystalGapY = 0.;
-    G4double absorber_crystalGap = 0*mm;
-    G4double crystal_pcbGap = 0*mm;
-    G4double pcb_absorberGap = 0*mm;
-//    G4double absorber_crystalGap = 0*mm;
-//    G4double crystal_pcbGap = 0*mm;
-//    G4double pcb_absorberGap = 0*mm;
+    G4double PCBZ = 2 * mm;
+    G4double crystalGapX = 0.0;
+    G4double crystalGapY = 0.0;
+    G4double absorber_crystalGap = 0 * mm;
+    G4double crystal_pcbGap = 0 * mm;
+    G4double pcb_absorberGap = 0 * mm;
+//    G4double absorber_crystalGap = 0 * mm;
+//    G4double crystal_pcbGap = 0 * mm;
+//    G4double pcb_absorberGap = 0 * mm;
 
-    G4double absorberPositionZ1 = (absorberZ0 + crystalZ + PCBZ + absorberZ/2.);
-    G4double absorberPositionZ2 = (absorberZ0 + crystalZ + PCBZ + absorberZ + PCBZ + crystalZ + crystal_pcbGap + absorberZ/2.);
-    G4double crystalPositionX = -(crystalNoX-1)*(crystalX+crystalGapX)/2.;
-    G4double crystalPositionY = -(crystalNoY-1)*(crystalY+crystalGapY)/2.;
-    G4double crystalPositionZ1 = (absorberZ0 + crystalZ/2.);
-    G4double PCBPositionZ1 = (absorberZ0 + crystalZ + PCBZ/2.);
-    //G4double PCBPositionZ2 = (crystalZ + PCBZ + absorberZ + PCBZ/2.);
-    //G4double crystalPositionZ2 = (crystalZ + PCBZ + absorberZ + crystal_pcbGap + PCBZ + crystalZ/2.);
-    G4double PCBPositionZ2 = (absorberZ0 + crystalZ + PCBZ + absorberZ + crystal_pcbGap + crystalZ + PCBZ/2.);
-    G4double crystalPositionZ2 = (absorberZ0 + crystalZ + PCBZ + absorberZ + crystal_pcbGap + crystalZ/2.);
-    //G4double crystalPositionZ2 = (crystalZ/2. + crystal_pcbGap - absorber_crystalGap);
-    //G4double PCBPositionZ2 = (PCBZ/2. + crystalZ + pcb_absorberGap - absorber_crystalGap);
+    G4double absorberPositionZ1 = (absorberZ0 + crystalZ + PCBZ + 0.5 * absorberZ);
+    G4double absorberPositionZ2 = (absorberZ0 + crystalZ + PCBZ + absorberZ + PCBZ + crystalZ + crystal_pcbGap + 0.5 * absorberZ);
+    G4double crystalPositionX = -(crystalNoX - 1) * 0.5 * (crystalX + crystalGapX);
+    G4double crystalPositionY = -(crystalNoY - 1) * 0.5 * (crystalY + crystalGapY);
+    G4double crystalPositionZ1 = (absorberZ0 + 0.5 * crystalZ);
+    G4double PCBPositionZ1 = (absorberZ0 + crystalZ + 0.5 * PCBZ);
+    //G4double PCBPositionZ2 = (crystalZ + PCBZ + absorberZ + 0.5 * PCBZ);
+    //G4double crystalPositionZ2 = (crystalZ + PCBZ + absorberZ + crystal_pcbGap + PCBZ + 0.5 * crystalZ);
+    G4double PCBPositionZ2 = (absorberZ0 + crystalZ + PCBZ + absorberZ + crystal_pcbGap + crystalZ + 0.5 * PCBZ);
+    G4double crystalPositionZ2 = (absorberZ0 + crystalZ + PCBZ + absorberZ + crystal_pcbGap + 0.5 * crystalZ);
+    //G4double crystalPositionZ2 = (0.5 * crystalZ + crystal_pcbGap - absorber_crystalGap);
+    //G4double PCBPositionZ2 = (0.5 * PCBZ + crystalZ + pcb_absorberGap - absorber_crystalGap);
 
     //G4double absorberGapZ = (absorberZ + crystalZ + PCBZ + absorber_crystalGap + crystal_pcbGap + pcb_absorberGap);
-    G4double absorberGapZ = (absorberZ + crystalZ + PCBZ)*2 + absorber_crystalGap + crystal_pcbGap;
+    G4double absorberGapZ = (absorberZ + crystalZ + PCBZ) * 2 + absorber_crystalGap + crystal_pcbGap;
     G4double PCBGapZ = absorberGapZ;
     G4double crystalGapZ = absorberGapZ;
 
@@ -134,7 +134,7 @@ void DetectorConstruction::ConstructECAL()
     for(G4int i_Layer=0; i_Layer!=LayerNo; ++i_Layer){
         if(i_Layer%2==0){
             new G4PVPlacement(0,                                                    // no rotation
-                    G4ThreeVector(0,0, (absorberPositionZ1+(i_Layer/2)*absorberGapZ)),                              // at (0,0,0)
+                    G4ThreeVector(0, 0, (absorberPositionZ1 + (i_Layer * 0.5) * absorberGapZ)),
                     logicAbsorber,                                         // its logical volume
                     "ecal_absorber",                                            // its name
                     logicWorld,                                           // its mother  volume
@@ -144,7 +144,7 @@ void DetectorConstruction::ConstructECAL()
         }
         if(i_Layer%2==1){
             new G4PVPlacement(0,                                                    // no rotation
-                    G4ThreeVector(0,0, (absorberPositionZ2+(i_Layer/2)*absorberGapZ)),                              // at (0,0,0)
+                    G4ThreeVector(0,0, (absorberPositionZ2 + (i_Layer * 0.5) * absorberGapZ)),
                     logicAbsorber,                                         // its logical volume
                     "ecal_Absorber",                                            // its name
                     logicWorld,                                           // its mother  volume
@@ -171,11 +171,12 @@ void DetectorConstruction::ConstructECAL()
         G4RotationMatrix rm;
         rm.rotateZ(90*deg);
         if(i_Layer%2==0){
-            for(G4int i_Lands=0; i_Lands!=crystalNoY; ++i_Lands){
-                for(G4int i_Portrait=0; i_Portrait!=crystalNoX; ++i_Portrait){
-
+            for(G4int i_Lands = 0; i_Lands != crystalNoY; ++i_Lands)
+            {
+                for(G4int i_Portrait = 0; i_Portrait != crystalNoX; ++i_Portrait)
+                {
                     new G4PVPlacement(0,                                                    // no rotation
-                            G4ThreeVector((crystalPositionX+i_Portrait*(crystalX+crystalGapX)), (crystalPositionY+i_Lands*(crystalY+crystalGapY)), (crystalPositionZ1+i_Layer/2*crystalGapZ)),                                      // at ()
+                            G4ThreeVector((crystalPositionX + i_Portrait * (crystalX + crystalGapX)), (crystalPositionY + i_Lands * (crystalY + crystalGapY)), (crystalPositionZ1 + i_Layer * 0.5 * crystalGapZ)),                                      // at ()
                             //G4Transform3D(rm, G4ThreeVector((crystalPositionY+i_Lands*(crystalY+crystalGapY)), (crystalPositionX+i_Portrait*(crystalX+crystalGapX)), (crystalPositionZ1+i_Layer/2*crystalGapZ))),                                      // at ()
                             logicCrystal,                                         // its logical volume
                             "ecal_crystal",                                            // its name
@@ -185,10 +186,12 @@ void DetectorConstruction::ConstructECAL()
                 }
             }
         }
-        if(i_Layer%2==1){
-            for(G4int i_Lands=0; i_Lands!=crystalNoY; ++i_Lands){
-                for(G4int i_Portrait=0; i_Portrait!=crystalNoX; ++i_Portrait){
-
+        if(i_Layer%2==1)
+        {
+            for(G4int i_Lands=0; i_Lands!=crystalNoY; ++i_Lands)
+            {
+                for(G4int i_Portrait=0; i_Portrait!=crystalNoX; ++i_Portrait)
+                {
                     new G4PVPlacement(
                             //G4ThreeVector((crystalPositionX+i_Portrait*(crystalX+crystalGapX)), (crystalPositionY+i_Lands*(crystalY+crystalGapY)), (crystalPositionZ2+i_Layer/2*crystalGapZ)),                                      // at ()
                             G4Transform3D(rm, G4ThreeVector((crystalPositionY+i_Lands*(crystalY+crystalGapY)), (crystalPositionX+i_Portrait*(crystalX+crystalGapX)), (crystalPositionZ2+(i_Layer-1)/2.*crystalGapZ))),                                      // at ()

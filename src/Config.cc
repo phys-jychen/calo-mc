@@ -1,5 +1,4 @@
 #include "Config.hh"
-
 using namespace std;
 
 Config::Config() {}
@@ -24,20 +23,19 @@ bool Config::IsLoad()
 
 G4int Config::Run()
 {
-    //choose the Random engine
+    // Choose the Random engine
     CLHEP::HepRandom::setTheEngine(new CLHEP::RanecuEngine);
-    if(conf["Global"]["useseed"].as<G4bool>())
+    if (conf["Global"]["useseed"].as<G4bool>())
         CLHEP::HepRandom::setTheSeed(conf["Global"]["seed"].as<G4int>());
     else
         CLHEP::HepRandom::setTheSeed(this->GetTimeNs());
     CLHEP::HepRandom::showEngineStatus();
-    std::cout << "seed: " << CLHEP::HepRandom::getTheSeed() << std::endl;
+    G4cout << "seed: " << CLHEP::HepRandom::getTheSeed() << G4endl;
 
     // Construct the default run manager
     // Verbose output class
     G4VSteppingVerbose::SetInstance(new SteppingVerbose);
     G4RunManager* runManager = new G4RunManager;
-
 
     // Set mandatory initialisation classes
     DetectorConstruction* detector = new DetectorConstruction(this);
@@ -51,8 +49,8 @@ G4int Config::Run()
     G4VUserPhysicsList* physics = new QGSP_BERT();
     runManager->SetUserInitialization(physics);
 
-    HistoManager* histo = new HistoManager(conf["Global"]["output"].as<std::string>().c_str(), conf["Global"]["savegeo"].as<G4bool>());
-    //SteppingVerbose* stepV = new SteppingVerbose();
+    HistoManager* histo = new HistoManager(conf["Global"]["output"].as<string>().c_str(), conf["Global"]["savegeo"].as<G4bool>());
+//    SteppingVerbose* stepV = new SteppingVerbose();
 
     PrimaryGeneratorAction* primary = new PrimaryGeneratorAction(detector, histo, this);
     runManager->SetUserAction(primary);
@@ -69,21 +67,21 @@ G4int Config::Run()
     SteppingAction* steppingAction = new SteppingAction(detector, eventAction);
     runManager->SetUserAction(steppingAction);
 
-    runManager->SetVerboseLevel(conf["Verbose"]["run"].as<int>());
+    runManager->SetVerboseLevel(conf["Verbose"]["run"].as<G4int>());
     G4String command = "/control/execute ";
 
-    UI->ApplyCommand(G4String("/control/verbose ") + G4String(conf["Verbose"]["control"].as<std::string>()));
-    UI->ApplyCommand(G4String("/tracking/verbose ") + G4String(conf["Verbose"]["tracking"].as<std::string>()));
-    UI->ApplyCommand(G4String("/event/verbose ") + G4String(conf["Verbose"]["event"].as<std::string>()));
+    UI->ApplyCommand(G4String("/control/verbose ") + G4String(conf["Verbose"]["control"].as<string>()));
+    UI->ApplyCommand(G4String("/tracking/verbose ") + G4String(conf["Verbose"]["tracking"].as<string>()));
+    UI->ApplyCommand(G4String("/event/verbose ") + G4String(conf["Verbose"]["event"].as<string>()));
+
     // Initialise G4 kernel
     runManager->Initialize();
-
-    runManager->BeamOn(conf["Global"]["beamon"].as<int>());
+    runManager->BeamOn(conf["Global"]["beamon"].as<G4int>());
 
     // Job termination
     delete runManager;
     if (access("cepc-calo.gdml", F_OK) == 0)
-        std::remove("cepc-calo.gdml");
+        remove("cepc-calo.gdml");
 
     return 1;
 }
