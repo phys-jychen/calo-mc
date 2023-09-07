@@ -51,3 +51,6 @@ source [build]/setup.sh
 ```
 
 By now, the compilation has been finished.  Generate your YAML file, and have fun! :p
+
+## Acknowledgement & Reference
+The author would like to thank Mr Zhen WANG (TDLI/SJTU), for kindly offering his project [cepc-calo](https://github.com/wangz1996/cepc-calo) for the convenience of generating MC samples of CEPC calorimeters.  In this project (CALO-MC), the Geant4 framework was adopted from cepc-calo.
