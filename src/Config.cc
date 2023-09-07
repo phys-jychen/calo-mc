@@ -24,26 +24,11 @@ G4bool Config::IsLoad()
 G4int Config::Run()
 {
     // Choose the Random engine
-    /*
-    if (conf["Global"]["useseed"].as<G4bool>())
-    {
-        G4Random::setTheEngine(new CLHEP::RanecuEngine);
-        G4int seed = conf["Global"]["seed"].as<G4int>();
-        G4Random::setTheSeed(seed);
-    }
-    else
-    {
-        CLHEP::HepRandom::setTheEngine(new CLHEP::RanecuEngine);
-        CLHEP::HepRandom::setTheSeed(this->GetTimeNs());
-    }
-    CLHEP::HepRandom::showEngineStatus();
-    G4cout << "seed: " << CLHEP::HepRandom::getTheSeed() << G4endl;
-    */
     CLHEP::HepRandom::setTheEngine(new CLHEP::RanecuEngine);
     if (conf["Global"]["useseed"].as<G4bool>())
     {
-        G4Random::setTheSeed(conf["Global"]["seed"].as<G4int>());
-        CLHEP::HepRandom::setTheSeed(conf["Global"]["seed"].as<G4int>());
+        G4Random::setTheSeed(conf["Global"]["seed"].as<G4long>());
+        CLHEP::HepRandom::setTheSeed(conf["Global"]["seed"].as<G4long>());
     }
     else
         CLHEP::HepRandom::setTheSeed(this->GetTimeNs());

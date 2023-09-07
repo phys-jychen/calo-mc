@@ -36,10 +36,6 @@ void DetectorConstruction::ConstructHCAL()
     G4double CellWidthY = config->conf["HCAL"]["CellWidthY"].as<G4double>();
 
     G4double absorberZ0 = 2.0 * mm;
-    /*
-    G4double crystalX = 40.0 * mm;
-    G4double crystalY = 40.0 * mm;
-     */
     G4double crystalX = CellWidthX * mm;
     G4double crystalY = CellWidthY * mm;
     G4double crystalZ = 3.0 * mm;
@@ -48,10 +44,6 @@ void DetectorConstruction::ConstructHCAL()
     G4double gapY = 0.3 * mm;
     G4double gapZ = 5.0 * mm;
     G4double crystalPositionZ = (ecal_length + absorberZ0 + gap_psd_abs0 + 0.5 * crystalZ) * mm;
-    /*
-    G4double PCBX = 720.0 * mm;
-    G4double PCBY = 720.0 * mm;
-     */
     G4double PCBX = nCellX * (CellWidthX + gapX) * mm;
     G4double PCBY = nCellY * (CellWidthY + gapY) * mm;
     G4double PCBZ = 2.0 * mm;

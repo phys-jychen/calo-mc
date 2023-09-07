@@ -31,7 +31,6 @@ void EventAction::BeginOfEventAction(const G4Event*)
     fDecayChain = " ";
 //    fHistoManager_Event->fParticleInfo.reset();
 //    G4cout << "Begin of event" << G4endl;
-//    G4RunManager::GetRunManager()->StoreRandomNumberStatusToG4Event(1);
 }
 
 void EventAction::EndOfEventAction(const G4Event* evt)

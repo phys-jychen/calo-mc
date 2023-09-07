@@ -34,10 +34,7 @@ void RunAction::BeginOfRunAction(const G4Run*)
         analysisManager->OpenFile();
   
     // Inform the runManager to save random number seed
-//    G4RunManager::GetRunManager()->StoreRandomNumberStatusToG4Event(config->conf["Global"]["seed"].as<G4int>());
-//    G4Random::setTheSeed(config->conf["Global"]["seed"].as<G4int>());
     G4RunManager::GetRunManager()->SetRandomNumberStore(false);
-//    G4RunManager::GetRunManager()->SetRandomNumberStore(true);
 
     fHistoManager->book();
 }
