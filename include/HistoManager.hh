@@ -45,36 +45,36 @@ public:
     std::vector<G4double> fhcal_cellx;
     std::vector<G4double> fhcal_celly;
     std::vector<G4double> fhcal_cellz;
-    std::unordered_map<G4int,G4double> fhcal_mape;
+    std::unordered_map<G4int, G4double> fhcal_mape;
 
     void reset()
     {
         std::vector<G4int>().swap(fecal_pdgid);
         std::vector<G4int>().swap(fecal_trackid);
-        std::vector<G4double>().swap( fecal_x);
-        std::vector<G4double>().swap( fecal_y);
-        std::vector<G4double>().swap( fecal_z);
-        std::vector<G4double>().swap( fecal_time);
-        std::vector<G4int>().swap( fecal_psdid);
-        std::vector<G4double>().swap( fecal_energy);
-        std::vector<G4int>().swap( fecal_cellid);
-        std::vector<G4double>().swap( fecal_celle);
-        std::vector<G4double>().swap( fecal_cellx);
-        std::vector<G4double>().swap( fecal_celly);
-        std::vector<G4double>().swap( fecal_cellz);
-        std::vector<G4int>().swap( fhcal_pdgid);
-        std::vector<G4int>().swap( fhcal_trackid);
-        std::vector<G4double>().swap( fhcal_x);
-        std::vector<G4double>().swap( fhcal_y);
-        std::vector<G4double>().swap( fhcal_z);
-        std::vector<G4double>().swap( fhcal_time);
-        std::vector<G4int>().swap( fhcal_psdid);
-        std::vector<G4double>().swap( fhcal_energy);
-        std::vector<G4int>().swap( fhcal_cellid);
-        std::vector<G4double>().swap( fhcal_celle);
-        std::vector<G4double>().swap( fhcal_cellx);
-        std::vector<G4double>().swap( fhcal_celly);
-        std::vector<G4double>().swap( fhcal_cellz);
+        std::vector<G4double>().swap(fecal_x);
+        std::vector<G4double>().swap(fecal_y);
+        std::vector<G4double>().swap(fecal_z);
+        std::vector<G4double>().swap(fecal_time);
+        std::vector<G4int>().swap(fecal_psdid);
+        std::vector<G4double>().swap(fecal_energy);
+        std::vector<G4int>().swap(fecal_cellid);
+        std::vector<G4double>().swap(fecal_celle);
+        std::vector<G4double>().swap(fecal_cellx);
+        std::vector<G4double>().swap(fecal_celly);
+        std::vector<G4double>().swap(fecal_cellz);
+        std::vector<G4int>().swap(fhcal_pdgid);
+        std::vector<G4int>().swap(fhcal_trackid);
+        std::vector<G4double>().swap(fhcal_x);
+        std::vector<G4double>().swap(fhcal_y);
+        std::vector<G4double>().swap(fhcal_z);
+        std::vector<G4double>().swap(fhcal_time);
+        std::vector<G4int>().swap(fhcal_psdid);
+        std::vector<G4double>().swap(fhcal_energy);
+        std::vector<G4int>().swap(fhcal_cellid);
+        std::vector<G4double>().swap(fhcal_celle);
+        std::vector<G4double>().swap(fhcal_cellx);
+        std::vector<G4double>().swap(fhcal_celly);
+        std::vector<G4double>().swap(fhcal_cellz);
         fecal_mape.clear();
         fhcal_mape.clear();
     };
@@ -115,16 +115,17 @@ public:
 class HistoManager
 {
 public:
-    HistoManager(const char* foutname,const bool &savegeo);
+    HistoManager(const char* foutname, const G4bool& savegeo);
     ~HistoManager();
     void save();
     void book();
     ParticleInfo fParticleInfo;
 
 private:
-    G4bool    fSaveGeo;
+    G4bool   fSaveGeo;
     G4String fOutName;
-public:  
+
+public:
     TFile* fRootFile;
     TTree* fNtuple;
 };

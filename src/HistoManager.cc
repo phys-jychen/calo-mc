@@ -16,9 +16,10 @@ HistoManager::~HistoManager()
 
 void HistoManager::book()
 {
-    G4cout << "------> Creating ROOT file" << G4endl;
+    G4cout << "----------> Creating ROOT file < ----------" << G4endl << G4endl;
     fRootFile = new TFile(fOutName.c_str(), "RECREATE");
     fNtuple = new TTree("Calib_Hit", "MC events");
+//    fNtuple = new TTree("Calib_Hit", "MC events of " + G4BestUnit(config->conf["Source"]["energy"].as<G4double>(), "Energy") + " " + config->conf["Source"]["particle"].as<G4String>());
 
     /*
     // ECAL
@@ -73,5 +74,5 @@ void HistoManager::save()
 
     fNtuple->Write("", TObject::kOverwrite);
     fRootFile->Close();
-    G4cout << "------> Closing ROOT file" << G4endl;
+    G4cout << "----------> Closing ROOT file <----------" << G4endl << G4endl;
 }

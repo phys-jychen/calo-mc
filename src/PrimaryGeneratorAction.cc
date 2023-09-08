@@ -27,12 +27,12 @@ PrimaryGeneratorAction::PrimaryGeneratorAction(DetectorConstruction* det, HistoM
     G4ParticleDefinition* particle = particleTable->FindParticle(config->conf["Source"]["particle"].as<std::string>());
     auto fParticleGun = fGParticleSource->GetCurrentSource();
     fParticleGun->SetParticleDefinition(particle);
-    fParticleGun->GetAngDist()->SetAngDistType("planar");
+    fParticleGun->GetAngDist()->SetAngDistType(config->conf["Source"]["ang_type"].as<std::string>());
     std::vector<G4double> gps_direction = config->conf["Source"]["direction"].as<std::vector<G4double>>();
     fParticleGun->GetAngDist()->SetParticleMomentumDirection(G4ThreeVector(gps_direction.at(0), gps_direction.at(1), gps_direction.at(2)));
-    fParticleGun->GetEneDist()->SetEnergyDisType("Mono");
+    fParticleGun->GetEneDist()->SetEnergyDisType(config->conf["Source"]["ene_type"].as<std::string>());
     fParticleGun->GetEneDist()->SetMonoEnergy(config->conf["Source"]["energy"].as<G4double>() * 1000.0);
-    fParticleGun->GetPosDist()->SetPosDisType("Point");
+    fParticleGun->GetPosDist()->SetPosDisType(config->conf["Source"]["pos_type"].as<std::string>());
     std::vector<G4double> gps_position = config->conf["Source"]["position"].as<std::vector<G4double>>();
     fParticleGun->GetPosDist()->SetCentreCoords(G4ThreeVector(gps_position.at(0), gps_position.at(1), gps_position.at(2)));
 

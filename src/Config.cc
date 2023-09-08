@@ -26,10 +26,7 @@ G4int Config::Run()
     // Choose the Random engine
     CLHEP::HepRandom::setTheEngine(new CLHEP::RanecuEngine);
     if (conf["Global"]["useseed"].as<G4bool>())
-    {
-        G4Random::setTheSeed(conf["Global"]["seed"].as<G4long>());
         CLHEP::HepRandom::setTheSeed(conf["Global"]["seed"].as<G4long>());
-    }
     else
         CLHEP::HepRandom::setTheSeed(this->GetTimeNs());
     CLHEP::HepRandom::showEngineStatus();
@@ -77,6 +74,11 @@ G4int Config::Run()
     UI->ApplyCommand(G4String("/tracking/verbose ") + G4String(conf["Verbose"]["tracking"].as<string>()));
     UI->ApplyCommand(G4String("/event/verbose ") + G4String(conf["Verbose"]["event"].as<string>()));
 
+    /*
+    for (auto subconf : conf["Source"]["settings"])
+        UI->ApplyCommand("/gps/" + subconf.first.as<string>() + " " + subconf.second.as<string>());
+    */
+
     // Initialise G4 kernel
     runManager->Initialize();
     runManager->BeamOn(conf["Global"]["beamon"].as<G4int>());
@@ -98,7 +100,7 @@ void Config::Print()
     fout << "Contact: Ji-Yuan CHEN (SJTU; < jy_chen@sjtu.edu.cn >)" << endl;
     fout << endl << endl;
     fout << "Global:" << endl;
-    fout << "    useseed: true    # Default: system time in ns" << endl;
+    fout << "    useseed: true    # True: Use user-specified seed; False: Use system time in ns" << endl;
     fout << "    seed: 2022" << endl;
     fout << endl;
     fout << "    usemac: false    # Currently not applicable" << endl;
@@ -121,13 +123,31 @@ void Config::Print()
     fout << endl;
     fout << "    CellWidthX: 40    # In mm" << endl;
     fout << "    CellWidthY: 40    # In mm" << endl;
-//    fout << "    CellThick: 30    # In mm" << endl;
     fout <<  endl << endl;
     fout << "# Particle source set-up" << endl;
     fout << "Source:" << endl;
+    /*
+    fout << "    settings:" << endl;
+    fout << "        source/multiplevertex: true" << endl;
+    fout << "        source/intensity: 5" << endl;
+    fout << "        particle: mu+" << endl;
+    fout << "        pos/type: Beam" << endl;
+    fout << "        pos/shape: Circle" << endl;
+    fout << "        pos/centre: 0 0 -1 cm" << endl;
+    fout << "        pos/radius: 3 mm" << endl;
+    fout << "        pos/sigma_r: 7 mm" << endl;
+    fout << "        ang/type: beam1d" << endl;
+    fout << "        ang/rot1: 0 1 0" << endl;
+    fout << "        ang/rot2: 1 0 0" << endl;
+    fout << "        ene/type: Gauss" << endl;
+    fout << "        ene/mono: 100 GeV" << endl;
+    */
     fout << "    particle: mu+" << endl;
+    fout << "    ene_type: Mono" << endl;
     fout << "    energy: 100.0    # In GeV" << endl;
+    fout << "    pos_type: Point" << endl;
     fout << "    position: [ 0.0, 0.0, -1.0 ]    # In cm" << endl;
+    fout << "    ang_type: planar" << endl;
     fout << "    direction: [ 0.0, 0.0, 1.0 ]" << endl;
     fout << endl << endl;
     fout << "# Verbose" << endl;

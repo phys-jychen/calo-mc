@@ -48,8 +48,9 @@ void EventAction::EndOfEventAction(const G4Event* evt)
     G4double gapY = 0.3;
 
     // Printing survey
-    if (evtNb % 1000 == 0) 
-        G4cout << G4endl << "End of event " << std::setw(6) << evtNb << " :" + fDecayChain << G4endl;
+    if ((evtNb <= 100 && evtNb % 10 == 0) || (evtNb > 100 && evtNb <= 1000 && evtNb % 100 == 0) || (evtNb > 1000 && evtNb % 1000 == 0))
+        G4cout << "Begin of event: " << std::setw(6) << evtNb << fDecayChain << G4endl << G4endl;
+
     for (auto i : fHistoManager_Event->fParticleInfo.fecal_mape)
     {
         if (i.second < 0.1)
@@ -64,13 +65,13 @@ void EventAction::EndOfEventAction(const G4Event* evt)
         G4double z = 0.0;
         if (layer % 2 == 0)
         {
-            x = -41.0 * 5.0 / 2.0 + n * 5.0;
-            y = -4.0 * 45.0 / 2.0 + m * 45.0;
+            x = -41.0 * 5.0 * 0.5 + n * 5.0;
+            y = -4.0 * 45.0 * 0.5 + m * 45.0;
         }
         if (layer % 2 == 1)
         {
-            x = -4.0 * 45.0 / 2.0 + m * 45.0;
-            y = -41.0 * 5.0 / 2.0 + n * 5.0;
+            x = -4.0 * 45.0 * 0.5 + m * 45.0;
+            y = -41.0 * 5.0 * 0.5 + n * 5.0;
         }
         z = 1.0 + layer * (2.0 + 2.0 + 2.8);
         fHistoManager_Event->fParticleInfo.fecal_cellx.emplace_back(x);
@@ -90,11 +91,6 @@ void EventAction::EndOfEventAction(const G4Event* evt)
         fHistoManager_Event->fParticleInfo.fhcal_cellx.emplace_back((x + 0.5 - 0.5 * nCellX) * (CellWidthX + gapX));
         fHistoManager_Event->fParticleInfo.fhcal_celly.emplace_back((y + 0.5 - 0.5 * nCellY) * (CellWidthY + gapY));
         fHistoManager_Event->fParticleInfo.fhcal_cellz.emplace_back(30.0 * layer);
-        /*
-        fHistoManager_Event->fParticleInfo.fhcal_cellx.emplace_back(-360.0 + (x + 0.5) * 40.0);
-        fHistoManager_Event->fParticleInfo.fhcal_celly.emplace_back(-360.0 + (y + 0.5) * 40.0);
-        fHistoManager_Event->fParticleInfo.fhcal_cellz.emplace_back(1.5 + layer * 25.0);
-        */
     }
 //    G4cout << "End of event " << fHistoManager_Event->fParticleInfo.nTrack << " " << fHistoManager_Event->fParticleInfo.fTrackTime[0] << G4endl;
  
@@ -118,13 +114,13 @@ void EventAction::AddEcalHit(const G4int& copyNo, const G4double& edep, const G4
     G4double z = 0.0;
     if (layer % 2 == 0)
     {
-        x = -41.0 * 5.0 / 2.0 + n * 5.0;
-        y = -4.0 * 45.0 / 2.0 + m * 45.0;
+        x = -41.0 * 5.0 * 0.5 + n * 5.0;
+        y = -4.0 * 45.0 * 0.5 + m * 45.0;
     }
     if (layer % 2 == 1)
     {
-        x = -4.0 * 45.0 / 2.0 + m * 45.0;
-        y = -41.0 * 5.0 / 2.0 + n * 5.0;
+        x = -4.0 * 45.0 * 0.5 + m * 45.0;
+        y = -41.0 * 5.0 * 0.5 + n * 5.0;
     }
     z = 1.0 + layer * (2.0 + 2.0 + 2.8);
     //fHistoManager_Event->fParticleInfo.fecal_x.emplace_back(x);
@@ -162,7 +158,7 @@ Double_t EventAction::SiPMDigi(const Double_t& edep) const
     Double_t sAdc = -1;
     while (sAdc < 0)
         sAdc = gRandom->Gaus(sChargeOut, 0.0002 * sChargeOut);
-    Double_t sMIP = sAdc / 29.4 / 20;
+    Double_t sMIP = sAdc / 29.4 * 0.05;
     if (sMIP < 0.5)
         return 0;
     return sMIP * 0.466;

@@ -83,7 +83,7 @@ void RunAction::Balance(G4double Ekin, G4double Pbal)
 
 void RunAction::EventTiming(G4double time)
 {
-    G4cout << "..................33333333333333333........................" << G4endl;
+    G4cout << "..................333333333333333333........................" << G4endl;
     fTimeCount++;  
 //    G4cout << "fTimeCount " << fTimeCount << G4endl;
     fEventTime[0] += time;
@@ -103,7 +103,7 @@ void RunAction::PrimaryTiming(G4double ptime)
 
 void RunAction::EndOfRunAction(const G4Run* run)
 {
-    G4cout << "..................55555555555555555........................" << G4endl;
+    G4cout << "..................555555555555555555........................" << G4endl;
     G4int nbEvents = run->GetNumberOfEvent();
     if (nbEvents == 0)
         return;
@@ -112,17 +112,15 @@ void RunAction::EndOfRunAction(const G4Run* run)
     G4String partName = particle->GetParticleName();
     G4double eprimary = fPrimary->GetParticleGun()->GetParticleEnergy();
  
-    G4cout << G4endl << "========================= Run summary =========================";
-    G4cout << G4endl << "The run was " << nbEvents << " " << partName << " of "
-           << G4BestUnit(eprimary,"Energy");
-    G4cout << G4endl << "===============================================================" << G4endl;
-    G4cout << G4endl;
+    G4cout << G4endl << "==================== Run Summary ====================" << G4endl;
+    G4cout << G4endl << "" << nbEvents << " " << partName << " events of " << G4BestUnit(eprimary, "Energy") << G4endl;
+    G4cout << G4endl << "=====================================================" << G4endl << G4endl;
 
     G4int prec = 4, wid = prec + 2;
     G4int dfprec = G4cout.precision(prec);
 
     // Particle count
-    G4cout << " Nb of generated particles:" << G4endl << G4endl;
+    G4cout << "Number of generated particles:" << G4endl << G4endl;
 
     std::map<G4String, G4int>::iterator it;
     for (it = fParticleCount.begin(); it != fParticleCount.end(); it++)
