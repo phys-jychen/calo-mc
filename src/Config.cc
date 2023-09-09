@@ -74,10 +74,8 @@ G4int Config::Run()
     UI->ApplyCommand(G4String("/tracking/verbose ") + G4String(conf["Verbose"]["tracking"].as<string>()));
     UI->ApplyCommand(G4String("/event/verbose ") + G4String(conf["Verbose"]["event"].as<string>()));
 
-    /*
     for (auto subconf : conf["Source"]["settings"])
         UI->ApplyCommand("/gps/" + subconf.first.as<string>() + " " + subconf.second.as<string>());
-    */
 
     // Initialise G4 kernel
     runManager->Initialize();
@@ -126,22 +124,19 @@ void Config::Print()
     fout <<  endl << endl;
     fout << "# Particle source set-up" << endl;
     fout << "Source:" << endl;
-    /*
     fout << "    settings:" << endl;
-    fout << "        source/multiplevertex: true" << endl;
-    fout << "        source/intensity: 5" << endl;
-    fout << "        particle: mu+" << endl;
-    fout << "        pos/type: Beam" << endl;
-    fout << "        pos/shape: Circle" << endl;
-    fout << "        pos/centre: 0 0 -1 cm" << endl;
-    fout << "        pos/radius: 3 mm" << endl;
-    fout << "        pos/sigma_r: 7 mm" << endl;
-    fout << "        ang/type: beam1d" << endl;
-    fout << "        ang/rot1: 0 1 0" << endl;
-    fout << "        ang/rot2: 1 0 0" << endl;
-    fout << "        ene/type: Gauss" << endl;
-    fout << "        ene/mono: 100 GeV" << endl;
-    */
+    fout << "        particle: \"mu+\"" << endl;
+    fout << "        pos/type: \"Beam\"" << endl;
+    fout << "        pos/shape: \"Circle\"" << endl;
+    fout << "        pos/centre: \"0 0 -1 cm\"" << endl;
+    fout << "        pos/radius: \"0 mm\"" << endl;
+    fout << "        pos/sigma_r: \"7 mm\"" << endl;
+    fout << "        ang/type: \"beam1d\"" << endl;
+    fout << "        ang/rot1: \"0 1 0\"" << endl;
+    fout << "        ang/rot2: \"1 0 0\"" << endl;
+    fout << "        ene/type: \"Gauss\"" << endl;
+    fout << "        ene/mono: \"100 GeV\"" << endl;
+    /*
     fout << "    particle: mu+" << endl;
     fout << "    ene_type: Mono" << endl;
     fout << "    energy: 100.0    # In GeV" << endl;
@@ -149,6 +144,7 @@ void Config::Print()
     fout << "    position: [ 0.0, 0.0, -1.0 ]    # In cm" << endl;
     fout << "    ang_type: planar" << endl;
     fout << "    direction: [ 0.0, 0.0, 1.0 ]" << endl;
+    */
     fout << endl << endl;
     fout << "# Verbose" << endl;
     fout << "Verbose:" << endl;

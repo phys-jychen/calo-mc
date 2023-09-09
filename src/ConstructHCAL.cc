@@ -41,8 +41,8 @@ void DetectorConstruction::ConstructHCAL()
     G4double crystalY = CellWidthY * mm;
     G4double crystalZ = 3.0 * mm;
     G4double gap_psd_abs0 = 0.1 * mm;
-    G4double gapX = 0.0 * mm;
-    G4double gapY = 0.0 * mm;
+    G4double gapX = 0.3 * mm;
+    G4double gapY = 0.3 * mm;
     G4double gapZ = 5.0 * mm;
     G4double crystalPositionZ = (ecal_length + absorberZ0 + gap_psd_abs0 + 0.5 * crystalZ) * mm;
     G4double PCBX = nCellX * (CellWidthX + gapX) * mm;
