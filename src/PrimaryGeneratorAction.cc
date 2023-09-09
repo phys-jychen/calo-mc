@@ -22,14 +22,15 @@ PrimaryGeneratorAction::PrimaryGeneratorAction(DetectorConstruction* det, HistoM
 {
 //    const char* filename = "pythia_event.data";
 //    HEPEvt = new G4HEPEvtInterface();
+
     fGParticleSource  = new G4GeneralParticleSource();
+    /*
     G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
-//    G4ParticleDefinition* particle = particleTable->FindParticle(config->conf["Source"]["particle"].as<std::string>());
+    G4ParticleDefinition* particle = particleTable->FindParticle(config->conf["Source"]["particle"].as<std::string>());
 
     auto fParticleGun = fGParticleSource->GetCurrentSource();
-//    fParticleGun->SetParticleDefinition(particle);
+    fParticleGun->SetParticleDefinition(particle);
 
-    /*
     fParticleGun->GetAngDist()->SetAngDistType(config->conf["Source"]["ang_type"].as<std::string>());
     std::vector<G4double> gps_direction = config->conf["Source"]["direction"].as<std::vector<G4double>>();
     fParticleGun->GetAngDist()->SetParticleMomentumDirection(G4ThreeVector(gps_direction.at(0), gps_direction.at(1), gps_direction.at(2)));
@@ -42,7 +43,7 @@ PrimaryGeneratorAction::PrimaryGeneratorAction(DetectorConstruction* det, HistoM
     fParticleGun->GetPosDist()->SetPosDisType(config->conf["Source"]["pos_type"].as<std::string>());
     std::vector<G4double> gps_position = config->conf["Source"]["position"].as<std::vector<G4double>>();
     fParticleGun->GetPosDist()->SetCentreCoords(G4ThreeVector(gps_position.at(0), gps_position.at(1), gps_position.at(2)));
-     */
+    */
 
     useHEPEvt = false;
 }

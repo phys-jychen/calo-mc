@@ -35,14 +35,14 @@ void DetectorConstruction::ConstructHCAL()
     G4int nCellY = config->conf["HCAL"]["nCellY"].as<G4int>();
     G4double CellWidthX = config->conf["HCAL"]["CellWidthX"].as<G4double>();
     G4double CellWidthY = config->conf["HCAL"]["CellWidthY"].as<G4double>();
+    G4double gapX = config->conf["HCAL"]["GapX"].as<G4double>() * mm;
+    G4double gapY = config->conf["HCAL"]["GapY"].as<G4double>() * mm;
 
     G4double absorberZ0 = 2.0 * mm;
     G4double crystalX = CellWidthX * mm;
     G4double crystalY = CellWidthY * mm;
     G4double crystalZ = 3.0 * mm;
     G4double gap_psd_abs0 = 0.1 * mm;
-    G4double gapX = 0.3 * mm;
-    G4double gapY = 0.3 * mm;
     G4double gapZ = 5.0 * mm;
     G4double crystalPositionZ = (ecal_length + absorberZ0 + gap_psd_abs0 + 0.5 * crystalZ) * mm;
     G4double PCBX = nCellX * (CellWidthX + gapX) * mm;
@@ -73,15 +73,15 @@ void DetectorConstruction::ConstructHCAL()
     G4LogicalVolume* logicAbsorber0 = new G4LogicalVolume(solidAbsorber0,                          // solid
                                                           iron,                                    // material
                                                           "hcal_absorber0"); 
-    G4VPhysicalVolume* physiAbsorber;
-    physiAbsorber = new G4PVPlacement(0,
-                                      G4ThreeVector(0, 0, absorberPositionZ0),
-                                      logicAbsorber0,
-                                      "hcal_absorber0",
-                                      logicWorld,
-                                      false,
-                                      -1,
-                                      checkOverlap);
+//    G4VPhysicalVolume* physiAbsorber;
+    G4VPhysicalVolume* physiAbsorber = new G4PVPlacement(0,
+                                                         G4ThreeVector(0, 0, absorberPositionZ0),
+                                                         logicAbsorber0,
+                                                         "hcal_absorber0",
+                                                         logicWorld,
+                                                         false,
+                                                         -1,
+                                                         checkOverlap);
     for (G4int i_Layer = 0; i_Layer < nLayer; ++i_Layer)
     {
         physiAbsorber = new G4PVPlacement(0,                                                       // no rotation
@@ -104,7 +104,6 @@ void DetectorConstruction::ConstructHCAL()
                                                         "hcal_psd");                               // name 
 
     G4VPhysicalVolume* physiCrystal;
-
     for (G4int i_Layer = 0; i_Layer < nLayer; ++i_Layer)
     {
         for (G4int i_X = 0; i_X < nCellX; ++i_X)
@@ -129,7 +128,7 @@ void DetectorConstruction::ConstructHCAL()
                                 0.5 * PCBX, 0.5 * PCBY, 0.5 * PCBZ);                               // its size
 
     G4LogicalVolume* logicPCB = new G4LogicalVolume(solidPCB,                                      // its solid
-				                                    kevlar,                                        // its material//should be check.............
+				                                    kevlar,                                        // its material//should be checked...
                                                     "hcal_pcb");                                   // its name 
 
     G4VPhysicalVolume* physiPCB;
