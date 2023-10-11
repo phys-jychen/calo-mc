@@ -44,8 +44,8 @@ void EventAction::EndOfEventAction(const G4Event* evt)
     G4int nCellY = config->conf["HCAL"]["nCellY"].as<G4int>();
     G4double CellWidthX = config->conf["HCAL"]["CellWidthX"].as<G4double>();
     G4double CellWidthY = config->conf["HCAL"]["CellWidthY"].as<G4double>();
-    G4double gapX = 0.3;
-    G4double gapY = 0.3;
+    G4double gapX = config->conf["HCAL"]["GapX"].as<G4double>();
+    G4double gapY = config->conf["HCAL"]["GapY"].as<G4double>();
 
     // Printing survey
     if ((evtNb <= 100 && evtNb % 10 == 0) || (evtNb > 100 && evtNb <= 1000 && evtNb % 100 == 0) || (evtNb > 1000 && evtNb % 1000 == 0))
