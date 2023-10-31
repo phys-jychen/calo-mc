@@ -19,9 +19,9 @@ SteppingAction::SteppingAction(DetectorConstruction* det, EventAction* event)
    fDetector(det), fEventAction_Step(event)                                         
 {
     fgInstance = this;
-    kineticEn=0;
-    volume1="none";
-    volume2="none";
+    kineticEn = 0;
+    volume1 = "none";
+    volume2 = "none";
 }
 
 SteppingAction::~SteppingAction()
@@ -31,7 +31,7 @@ SteppingAction::~SteppingAction()
 
 void SteppingAction::UserSteppingAction(const G4Step* aStep)
 {
-    //G4EmSaturation *G4Em = new G4EmSaturation();
+    //G4EmSaturation* G4Em = new G4EmSaturation();
     //G4Em->SetVerbose(0);
     //G4double edep =   G4Em->VisibleEnergyDeposition(aStep);
     G4double edep = BirksAttenuation(aStep);
@@ -45,13 +45,13 @@ void SteppingAction::UserSteppingAction(const G4Step* aStep)
 
     // check if we are in scoring volume
     // collect energy and track length step by step
-    //std::cout<<volumeName<<" "<<int(volumeName=="ecal_crystal")<<" "<<edep<<std::endl;
-    if(volumeName=="ecal_crystal")
-        fEventAction_Step->AddEcalHit(copyNo,edep,time,pdgid,trackid);
-    if(volumeName=="hcal_psd") 
+    //G4cout << volumeName << " " << G4int (volumeName == "ecal_crystal") << " " << edep << G4endl;
+//    if (volumeName == "ecal_crystal")
+//        fEventAction_Step->AddEcalHit(copyNo, edep, time, pdgid, trackid);
+    if (volumeName == "hcal_psd")
     { 
-        //std::cout<<copyNo<<" pdg: "<<pdgid<<" track: "<<trackid<<" edep: "<<edep<<std::endl;
-        fEventAction_Step->AddHcalHit(copyNo,edep,time,pdgid,trackid); 
+        //G4cout << copyNo << " pdg: " << pdgid << " track: " << trackid << " edep: " << edep << G4endl;
+        fEventAction_Step->AddHcalHit(copyNo, edep, time, pdgid, trackid);
     }
 }
  
@@ -72,7 +72,7 @@ G4double SteppingAction::BirksAttenuation(const G4Step* aStep)
     G4double charge      = aStep->GetTrack()->GetDefinition()->GetPDGCharge();
     //
     G4double response = destep;
-    if (birk1*destep*stepl*charge != 0.)
-        response = destep/(1. + birk1*destep/stepl);
+    if (birk1 * destep * stepl * charge != 0.0)
+        response = destep / (1.0 + birk1 * destep / stepl);
     return response;
 }

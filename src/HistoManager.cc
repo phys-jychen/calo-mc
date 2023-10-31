@@ -46,20 +46,23 @@ void HistoManager::book()
     fNtuple->Branch("hcal_y",              &fParticleInfo.fhcal_y);
     fNtuple->Branch("hcal_z",              &fParticleInfo.fhcal_z);
     fNtuple->Branch("hcal_time",           &fParticleInfo.fhcal_time);
-    */
-    fNtuple->Branch("CellID",              &fParticleInfo.fhcal_cellid);
-    fNtuple->Branch("Hit_Energy",          &fParticleInfo.fhcal_celle);
-    fNtuple->Branch("Hit_X",               &fParticleInfo.fhcal_cellx);
-    fNtuple->Branch("Hit_Y",               &fParticleInfo.fhcal_celly);
-    fNtuple->Branch("Hit_Z",               &fParticleInfo.fhcal_cellz);
-//    fNtuple->Branch("Hit_Time",            &fParticleInfo.fhcal_cellt);
-    /*
     fNtuple->Branch("hcal_cellid",         &fParticleInfo.fhcal_cellid);
     fNtuple->Branch("hcal_celle",          &fParticleInfo.fhcal_celle);
     fNtuple->Branch("hcal_cellx",          &fParticleInfo.fhcal_cellx);
     fNtuple->Branch("hcal_celly",          &fParticleInfo.fhcal_celly);
     fNtuple->Branch("hcal_cellz",          &fParticleInfo.fhcal_cellz);
     */
+    fNtuple->Branch("CellID",              &fParticleInfo.fhcal_cellid);
+    fNtuple->Branch("Hit_Energy_nodigi",   &fParticleInfo.fhcal_celle_nodigi);
+    fNtuple->Branch("Hit_Energy",          &fParticleInfo.fhcal_celle);
+    fNtuple->Branch("Hit_X",               &fParticleInfo.fhcal_cellx);
+    fNtuple->Branch("Hit_Y",               &fParticleInfo.fhcal_celly);
+    fNtuple->Branch("Hit_Z",               &fParticleInfo.fhcal_cellz);
+    fNtuple->Branch("Energy",              &fParticleInfo.fhcal_energy);
+    fNtuple->Branch("X",                   &fParticleInfo.fhcal_x);
+    fNtuple->Branch("Y",                   &fParticleInfo.fhcal_y);
+    fNtuple->Branch("Z",                   &fParticleInfo.fhcal_z);
+    fNtuple->Branch("Time",                &fParticleInfo.fhcal_time);
 }
 
 void HistoManager::save()

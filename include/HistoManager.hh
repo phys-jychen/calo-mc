@@ -18,6 +18,7 @@ class ParticleInfo
 public:
     G4int fPrimaryPDG;
     G4double fPrimaryEnergy;
+    /*
     std::vector<G4int> fecal_pdgid;
     std::vector<G4int> fecal_trackid;
     std::vector<G4double> fecal_x;
@@ -31,7 +32,8 @@ public:
     std::vector<G4double> fecal_cellx;
     std::vector<G4double> fecal_celly;
     std::vector<G4double> fecal_cellz;
-    std::unordered_map<G4int,G4double> fecal_mape;
+    std::unordered_map<G4int, G4double> fecal_mape;
+    */
     std::vector<G4int> fhcal_pdgid;
     std::vector<G4int> fhcal_trackid;
     std::vector<G4double> fhcal_x;
@@ -41,6 +43,7 @@ public:
     std::vector<G4int> fhcal_psdid;
     std::vector<G4double> fhcal_energy;
     std::vector<G4int> fhcal_cellid;
+    std::vector<G4double> fhcal_celle_nodigi;
     std::vector<G4double> fhcal_celle;
     std::vector<G4double> fhcal_cellx;
     std::vector<G4double> fhcal_celly;
@@ -49,6 +52,7 @@ public:
 
     void reset()
     {
+        /*
         std::vector<G4int>().swap(fecal_pdgid);
         std::vector<G4int>().swap(fecal_trackid);
         std::vector<G4double>().swap(fecal_x);
@@ -62,6 +66,7 @@ public:
         std::vector<G4double>().swap(fecal_cellx);
         std::vector<G4double>().swap(fecal_celly);
         std::vector<G4double>().swap(fecal_cellz);
+        */
         std::vector<G4int>().swap(fhcal_pdgid);
         std::vector<G4int>().swap(fhcal_trackid);
         std::vector<G4double>().swap(fhcal_x);
@@ -71,16 +76,18 @@ public:
         std::vector<G4int>().swap(fhcal_psdid);
         std::vector<G4double>().swap(fhcal_energy);
         std::vector<G4int>().swap(fhcal_cellid);
+        std::vector<G4double>().swap(fhcal_celle_nodigi);
         std::vector<G4double>().swap(fhcal_celle);
         std::vector<G4double>().swap(fhcal_cellx);
         std::vector<G4double>().swap(fhcal_celly);
         std::vector<G4double>().swap(fhcal_cellz);
-        fecal_mape.clear();
+//        fecal_mape.clear();
         fhcal_mape.clear();
     };
 
     ParticleInfo()
     {
+        /*
         std::vector<G4int>().swap(fecal_pdgid);
         std::vector<G4int>().swap(fecal_trackid);
         std::vector<G4double>().swap(fecal_x);
@@ -94,6 +101,7 @@ public:
         std::vector<G4double>().swap(fecal_cellx);
         std::vector<G4double>().swap(fecal_celly);
         std::vector<G4double>().swap(fecal_cellz);
+        */
         std::vector<G4int>().swap(fhcal_pdgid);
         std::vector<G4int>().swap(fhcal_trackid);
         std::vector<G4double>().swap(fhcal_x);
@@ -103,11 +111,12 @@ public:
         std::vector<G4int>().swap(fhcal_psdid);
         std::vector<G4double>().swap(fhcal_energy);
         std::vector<G4int>().swap(fhcal_cellid);
+        std::vector<G4double>().swap(fhcal_celle_nodigi);
         std::vector<G4double>().swap(fhcal_celle);
         std::vector<G4double>().swap(fhcal_cellx);
         std::vector<G4double>().swap(fhcal_celly);
         std::vector<G4double>().swap(fhcal_cellz);
-        fecal_mape.clear();
+//        fecal_mape.clear();
         fhcal_mape.clear();
     }
 };

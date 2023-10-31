@@ -39,7 +39,7 @@ G4int Config::Run()
 
     // Set mandatory initialisation classes
     DetectorConstruction* detector = new DetectorConstruction(this);
-    if(conf["Global"]["savegeo"].as<G4bool>())
+    if (conf["Global"]["savegeo"].as<G4bool>())
     {
     	G4GDMLParser parser;
     	parser.Write("cepc-calo.gdml",detector->Construct());

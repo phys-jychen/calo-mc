@@ -120,7 +120,7 @@ void RunAction::EndOfRunAction(const G4Run* run)
     G4int dfprec = G4cout.precision(prec);
 
     // Particle count
-    G4cout << "Number of generated particles:" << G4endl << G4endl;
+//    G4cout << "Number of generated particles:" << G4endl << G4endl;
 
     std::map<G4String, G4int>::iterator it;
     for (it = fParticleCount.begin(); it != fParticleCount.end(); it++)
@@ -147,7 +147,7 @@ void RunAction::EndOfRunAction(const G4Run* run)
                << std::setw(wid) << G4BestUnit(Ebmean, "Energy")
                << "\t( "  << G4BestUnit(fEkinTot[1], "Energy")
                << " --> " << G4BestUnit(fEkinTot[2], "Energy")
-               << ")" << G4endl;    
+               << ")" << G4endl;
               
         G4cout << G4endl << "Momentum balance (excluding gamma de-excitation): mean = " 
                << std::setw(wid) << G4BestUnit(Pbmean, "Energy")
