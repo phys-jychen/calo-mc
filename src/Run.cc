@@ -190,13 +190,13 @@ void Run::EndOfRun()
         G4double Ebmean = fEkinTot[0] / fDecayCount;
         G4double Pbmean = fPbalance[0] / fDecayCount;
              
-        G4cout << G4endl<< "Ekin Total (Q): mean = "
+        G4cout << G4endl << "Ekin Total (Q): mean = "
                << std::setw(wid) << G4BestUnit(Ebmean, "Energy")
                << "\t( "  << G4BestUnit(fEkinTot[1], "Energy")
                << " --> " << G4BestUnit(fEkinTot[2], "Energy")
                << ")" << G4endl;    
                
-        G4cout << G4endl<< "Momentum balance (excluding gamma desexcitation): mean = " 
+        G4cout << G4endl << "Momentum balance (excluding gamma de-excitation): mean = "
                << std::setw(wid) << G4BestUnit(Pbmean, "Energy")
                << "\t( "  << G4BestUnit(fPbalance[1], "Energy")
                << " --> " << G4BestUnit(fPbalance[2], "Energy")
@@ -213,7 +213,6 @@ void Run::EndOfRun()
         G4cout << G4endl << "Total time of life : mean = "
                << std::setw(wid) << G4BestUnit(Tmean, "Time")
                << "  half-life = "
-//        fHitNu = 0;
                << std::setw(wid) << G4BestUnit(halfLife, "Time")
                << "   ( "  << G4BestUnit(fEventTime[1], "Time")
                << " --> "  << G4BestUnit(fEventTime[2], "Time")

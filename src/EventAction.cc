@@ -84,7 +84,7 @@ void EventAction::EndOfEventAction(const G4Event* evt)
 
     for (auto i : fHistoManager_Event->fParticleInfo.fhcal_mape)
     {
-        fHistoManager_Event->fParticleInfo.fhcal_celle_nodigi.emplace_back(i.second);
+//        fHistoManager_Event->fParticleInfo.fhcal_celle_nodigi.emplace_back(i.second);
         if (i.second < 0.1)
         	continue;
         fHistoManager_Event->fParticleInfo.fhcal_cellid.emplace_back(i.first);
@@ -137,6 +137,7 @@ void EventAction::AddEcalHit(const G4int& copyNo, const G4double& edep, const G4
 
 void EventAction::AddHcalHit(const G4int& copyNo, const G4double& edep, const G4double& time, const G4int& pdgid, const G4int& trackid)
 {
+    /*
     G4int nCellX = config->conf["HCAL"]["nCellX"].as<G4int>();
     G4int nCellY = config->conf["HCAL"]["nCellY"].as<G4int>();
     G4double CellWidthX = config->conf["HCAL"]["CellWidthX"].as<G4double>();
@@ -157,6 +158,7 @@ void EventAction::AddHcalHit(const G4int& copyNo, const G4double& edep, const G4
     fHistoManager_Event->fParticleInfo.fhcal_x.emplace_back((x + 0.5 - 0.5 * nCellX) * (CellWidthX + gapX));
     fHistoManager_Event->fParticleInfo.fhcal_y.emplace_back((y + 0.5 - 0.5 * nCellY) * (CellWidthY + gapY));
     fHistoManager_Event->fParticleInfo.fhcal_z.emplace_back(thick * layer);
+    */
     fHistoManager_Event->fParticleInfo.fhcal_mape[copyNo] += edep;
 }
 
