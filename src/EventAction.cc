@@ -49,7 +49,7 @@ void EventAction::EndOfEventAction(const G4Event* evt)
     G4double thick = 30.0;
 
     // Printing survey
-    if ((evtNb <= 100 && evtNb % 10 == 0) || (evtNb > 100 && evtNb <= 1000 && evtNb % 100 == 0) || (evtNb > 1000 && evtNb % 1000 == 0))
+    if (evtNb < 10 || (evtNb <= 100 && evtNb % 10 == 0) || (evtNb > 100 && evtNb <= 1000 && evtNb % 100 == 0) || (evtNb > 1000 && evtNb % 1000 == 0))
         G4cout << "Begin of event: " << std::setw(6) << evtNb << fDecayChain << G4endl << G4endl;
 
     /*
@@ -134,6 +134,7 @@ void EventAction::AddEcalHit(const G4int& copyNo, const G4double& edep, const G4
     fHistoManager_Event->fParticleInfo.fecal_mape[copyNo] += edep;
 }
 */
+
 
 void EventAction::AddHcalHit(const G4int& copyNo, const G4double& edep, const G4double& time, const G4int& pdgid, const G4int& trackid)
 {

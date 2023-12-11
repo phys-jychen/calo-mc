@@ -26,7 +26,7 @@ void Run::SetPrimary(G4ParticleDefinition* particle, G4double energy)
 
 void Run::ParticleCount(G4String name, G4double Ekin)
 {
-    G4cout << "................666666666666666666666........................." << G4endl;
+    G4cout << "....................66666666666666666666...................." << G4endl;
     std::map<G4String, ParticleData>::iterator it = fParticleDataMap.find(name);
     if (it == fParticleDataMap.end())
         fParticleDataMap[name] = ParticleData(1, Ekin, Ekin, Ekin);
@@ -152,21 +152,17 @@ void Run::EndOfRun()
 {
     G4int nbEvents = numberOfEvent;
     G4String partName = fParticle->GetParticleName();
- 
-    G4cout << G4endl<< "========================= Run summary =========================";  
-    G4cout << G4endl<< "The run was " << nbEvents << " " << partName << " of "
-           << G4BestUnit(fEkin, "Energy");
-    G4cout << G4endl<< "===============================================================";
-    G4cout << G4endl << G4endl;
+
+    G4cout << G4endl << "==================== Run Summary ====================" << G4endl;
+    G4cout << G4endl << "" << nbEvents << " " << partName << " events of " << G4BestUnit(fEkin, "Energy") << G4endl;
+    G4cout << G4endl << "=====================================================" << G4endl << G4endl;
+
     if (nbEvents == 0)
         return;
  
     G4int prec = 4, wid = prec + 2;
     G4int dfprec = G4cout.precision(prec);
-      
-    // Particle count
-    G4cout << " Nb of generated particles:" << G4endl << G4endl;
-     
+
     std::map<G4String,ParticleData>::iterator it;               
     for (it = fParticleDataMap.begin(); it != fParticleDataMap.end(); it++)
     {

@@ -27,9 +27,9 @@ class Config
 public:
 	Config();
 	~Config();
-	virtual void Print();
+	virtual G4int Print();
     virtual void Parse(const std::string& config_file);
-    virtual int Run();
+    virtual G4int Run();
 	bool IsLoad();
 	YAML::Node conf;
 

@@ -89,14 +89,18 @@ G4int Config::Run()
     return 1;
 }
 
-void Config::Print()
+G4int Config::Print()
 {
     ofstream fout("./default.yaml");
 
+    fout << "# Notice: In YAML files, indentation matters!" << endl;
+    fout << endl;
     fout << "# Project information" << endl;
     fout << "Project: CALO-MC" << endl;
-    fout << "Contact: Ji-Yuan CHEN (SJTU; < jy_chen@sjtu.edu.cn >)" << endl;
+    fout << "Author: Ji-Yuan CHEN (SJTU)" << endl;
+    fout << "Email: jy_chen@sjtu.edu.cn" << endl;
     fout << endl << endl;
+    fout << "# Global set-up" << endl;
     fout << "Global:" << endl;
     fout << "    useseed: true    # True: Use user-specified seed; False: Use system time in ns" << endl;
     fout << "    seed: 2022" << endl;
@@ -114,6 +118,7 @@ void Config::Print()
     fout << "    build_HCAL: true" << endl;
     fout << endl << endl;
     fout << "# Structure of HCAL" << endl;
+    fout << "# Warning: Be careful while editing this section!  Non-standard structures have not been fully tested!" << endl;
     fout << "HCAL:" << endl;
     fout << "    nCellX: 18" << endl;
     fout << "    nCellY: 18" << endl;
@@ -130,26 +135,16 @@ void Config::Print()
     fout << "    particle: \"mu-\"" << endl;
     fout << endl;
     fout << "    pos/type: \"Beam\"" << endl;
-    fout << "    pos/shape: \"Circle\"" << endl;
-    fout << "    pos/centre: \"0 0 -1 cm\"" << endl;
-    fout << "    pos/radius: \"0 mm\"" << endl;
+    fout << "    pos/centre: \"1 1 -100 mm\"" << endl;
     fout << "    pos/sigma_r: \"7 mm\"" << endl;
     fout << endl;
     fout << "    ang/type: \"beam1d\"" << endl;
     fout << "    ang/rot1: \"0 1 0\"" << endl;
-    fout << "    ang/rot2: \"1 0 0\"" << endl;
+    fout << "    ang/rote: \"1 0 0\"" << endl;
     fout << endl;
     fout << "    ene/type: \"Mono\"" << endl;
     fout << "    ene/mono: \"100 GeV\"" << endl;
-    /*
-    fout << "    particle: mu+" << endl;
-    fout << "    ene_type: Mono" << endl;
-    fout << "    energy: 100.0    # In GeV" << endl;
-    fout << "    pos_type: Point" << endl;
-    fout << "    position: [ 0.0, 0.0, -1.0 ]    # In cm" << endl;
-    fout << "    ang_type: planar" << endl;
-    fout << "    direction: [ 0.0, 0.0, 1.0 ]" << endl;
-    */
+    fout << "    ene/sigma: \"0 MeV\"" << endl;
     fout << endl << endl;
     fout << "# Verbose" << endl;
     fout << "Verbose:" << endl;
@@ -159,4 +154,7 @@ void Config::Print()
     fout << "    tracking: 0" << endl;
 
     fout.close();
+
+    cout << "Configuration file default.yaml successfully created!" << endl;
+    return 1;
 }

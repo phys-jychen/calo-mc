@@ -119,9 +119,6 @@ void RunAction::EndOfRunAction(const G4Run* run)
     G4int prec = 4, wid = prec + 2;
     G4int dfprec = G4cout.precision(prec);
 
-    // Particle count
-//    G4cout << "Number of generated particles:" << G4endl << G4endl;
-
     std::map<G4String, G4int>::iterator it;
     for (it = fParticleCount.begin(); it != fParticleCount.end(); it++)
     { 
