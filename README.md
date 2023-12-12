@@ -11,7 +11,7 @@ This program was designed for generating Monte Carlo samples of CEPC calorimeter
 - **The following layers:** Without the 2-mm absorber and the 1-mm gap.
 - **Thickness per layer:** 30 mm.
 - **Scintillator size:** 40 × 40 × 3 mm<sup>3</sup>.
-- **ESR:** ESR folds the scintillator. In the gap, the thickness is 0.15 mm.
+- **ESR:** ESR folds the scintillator. In the gap, the thickness is 0.15 mm; in z direction, that is 0.25 mm..
 
 ## Environment Set-up
 This project requires CMake version >= 3.11. If you are working on the cluster of INPAC, IHEP, etc., the environment can be easily set up by executing

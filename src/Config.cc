@@ -140,7 +140,7 @@ G4int Config::Print()
     fout << endl;
     fout << "    ang/type: \"beam1d\"" << endl;
     fout << "    ang/rot1: \"0 1 0\"" << endl;
-    fout << "    ang/rote: \"1 0 0\"" << endl;
+    fout << "    ang/rot2: \"1 0 0\"" << endl;
     fout << endl;
     fout << "    ene/type: \"Mono\"" << endl;
     fout << "    ene/mono: \"100 GeV\"" << endl;
