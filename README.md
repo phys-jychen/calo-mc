@@ -11,7 +11,7 @@ This program was designed for generating Monte Carlo samples of CEPC calorimeter
 - **The following layers:** Without the 2-mm absorber and the 1-mm gap.
 - **Thickness per layer:** 30 mm.
 - **Scintillator size:** 40 × 40 × 3 mm<sup>3</sup>.
-- **ESR:** ESR folds the scintillator. In the gap, the thickness is 0.15 mm; in z direction, that is 0.25 mm..
+- **ESR:** ESR folds the scintillator. In the gap, the thickness is 0.15 mm.
 
 ## Environment Set-up
 This project requires CMake version >= 3.11. If you are working on the cluster of INPAC, IHEP, etc., the environment can be easily set up by executing
@@ -62,6 +62,8 @@ By now, the compilation has been finished. Generate your YAML file, and have fun
 ## Change Log
 ### 11 December 2023
 The structure of AHCAL is now the same as that from IHEP, by adding ESR, changing the materials, and modifying the thickness of PCB. See [Standard Structure](#standard-structure).
+### 15 December 2023
+Simplified the geometry of ESR.
 
 ## Acknowledgement & Reference
 The author would like to thank Mr Zhen WANG (TDLI/SJTU), for kindly offering his project [cepc-calo](https://github.com/wangz1996/cepc-calo) for the convenience of generating MC samples of CEPC calorimeters. In this project (CALO-MC), the Geant4 framework was adopted from cepc-calo.
